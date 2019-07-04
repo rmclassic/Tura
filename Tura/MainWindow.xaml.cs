@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tura.Models;
 
+
 namespace Tura
 {
     
@@ -22,12 +23,22 @@ namespace Tura
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<Machine> Machines;
+        private List<Machine> Machines;
 
 
         public MainWindow()
         {
             InitializeComponent();
+            MachinesGrid.Children.Add(new MachineControl(new TuringMachine()));
         }
+
+        public void InvalidateMachinesGrid()
+        {
+            foreach (Machine machine in Machines)
+            {
+                MachinesGrid.Children.Add(new MachineControl(machine));
+            }
+        }
+
     }
 }
