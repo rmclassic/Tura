@@ -59,6 +59,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\VertexControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MachineEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -69,6 +77,12 @@
     </Compile>
     <Compile Include="Controls\MachineControl.xaml.cs">
       <DependentUpon>MachineControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VertexControl.xaml.cs">
+      <DependentUpon>VertexControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MachineEditWindow.xaml.cs">
+      <DependentUpon>MachineEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

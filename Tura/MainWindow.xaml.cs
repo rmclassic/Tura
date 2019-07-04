@@ -23,22 +23,34 @@ namespace Tura
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Machine> Machines;
+        private List<Machine> Machines = new List<Machine>();
 
 
         public MainWindow()
         {
             InitializeComponent();
-            MachinesGrid.Children.Add(new MachineControl(new TuringMachine()));
+            Machines.Add(new TuringMachine("New Turing Machine"));
+            InvalidateMachinesGrid();
         }
 
         public void InvalidateMachinesGrid()
         {
+            MachinesGrid.Children.Clear();
             foreach (Machine machine in Machines)
             {
+           
                 MachinesGrid.Children.Add(new MachineControl(machine));
             }
         }
 
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem item = sender as MenuItem;
+
+            if (item.Header.ToString() == "Turing Machine")
+                Machines.Add(new TuringMachine("New Turing Machine"));
+
+            InvalidateMachinesGrid();
+        }
     }
 }

@@ -25,12 +25,15 @@ namespace Tura
         Point MouseLastPosition;
         public MachineControl(Machine containingmachine)
         {
+            InitializeComponent();
+            Margin = new Thickness(containingmachine.Location.X, containingmachine.Location.Y, 0, 0);
+            
             ContainingMachine = containingmachine;
             MouseDoubleClick += MachineControl_MouseDoubleClick;
+            MachineName.Text = containingmachine.Name;
             MouseDown += MachineControl_MouseDown;
             MouseMove += MachineControl_MouseMove;
             MouseUp += MachineControl_MouseUp;
-            InitializeComponent();
         }
 
         private void MachineControl_MouseUp(object sender, MouseButtonEventArgs e)
@@ -45,9 +48,11 @@ namespace Tura
             {
                 Point p = Mouse.GetPosition(this);
                 Margin = new Thickness(Margin.Left + (p.X - MouseLastPosition.X), Margin.Top + (p.Y - MouseLastPosition.Y), Margin.Right, Margin.Bottom);
-               // RenderTransform = new TranslateTransform(p.X, p.Y);
+                ContainingMachine.Location.X = Margin.Left + (p.X - MouseLastPosition.X);
+                ContainingMachine.Location.Y = Margin.Top + (p.Y - MouseLastPosition.Y);
+
             }
-            
+
         }
 
         private void MachineControl_MouseDown(object sender, MouseButtonEventArgs e)
@@ -58,7 +63,10 @@ namespace Tura
 
         private void MachineControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            
+            new MachineEditWindow(ContainingMachine).ShowDialog();
+            Dragging = false;
+            e.Handled = true;
         }
     }
 }
