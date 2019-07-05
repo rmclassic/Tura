@@ -21,8 +21,10 @@ namespace Tura.Controls
     public partial class EdgeControl : UserControl
     {
         Line EdgeLine;
+        TextBlock ConditionTextBlock = new TextBlock();
         Edge ContainingEdge;
         Path Path = new Path();
+        Polygon Arrow = new Polygon();
         public EdgeControl(Edge containingedge)
         {
             InitializeComponent();
@@ -57,21 +59,57 @@ namespace Tura.Controls
 
         private void DrawSelfEdge()
         {
+            Point CenterPoint = new Point(EdgeLine.X1, EdgeLine.Y1 + 112);
             Path.Data = PathGeometry.Parse("M " + EdgeLine.X1 + "," + EdgeLine.Y1 + " c" + " 150,150 -150,150 0,0");
+            double Offx = 5, Offy = 2;
+            if (EdgeLine.X2 - EdgeLine.X1 < 0)
+                Offx = -Offx;
+            if (EdgeLine.Y1 - EdgeLine.Y2 < 0)
+                Offy = -Offy;
 
+            Arrow.Points.Clear();
+            Arrow.Points.Add(CenterPoint);
+            Arrow.Points.Add(new Point(CenterPoint.X - Offx, CenterPoint.Y + Offy));
+            Arrow.Points.Add(new Point(CenterPoint.X - Offx, CenterPoint.Y - Offy));
 
+            ConditionTextBlock.Margin = new Thickness(CenterPoint.X, CenterPoint.Y, 0, 0);
+            ConditionTextBlock.Text = ContainingEdge.GetCondition.ToString();
+            
         }
 
         private void DrawCurvedEdge()
         {
-            Point p = new Point((EdgeLine.X1 + EdgeLine.X2) / 2, (EdgeLine.Y1 + EdgeLine.Y2) / 2);
+            Point CenterPoint = new Point((EdgeLine.X1 + EdgeLine.X2) / 2, (EdgeLine.Y1 + EdgeLine.Y2) / 2);
+            
             double CurvOffx = 50, CurvOffy = 50;
             if (EdgeLine.X2 - EdgeLine.X1 < 0)
                 CurvOffx = -CurvOffx;
             if (EdgeLine.Y1 - EdgeLine.Y2 < 0)
                 CurvOffy = -CurvOffy;
 
-            Path.Data = PathGeometry.Parse("M " + EdgeLine.X1 + "," + EdgeLine.Y1 + " C " + EdgeLine.X1 + "," + EdgeLine.Y1 + " " + (int)(p.X + CurvOffx) + "," + (int)(p.Y + CurvOffy) + " " + EdgeLine.X2 + "," + EdgeLine.Y2);
+            if (EdgeLine.X2 == EdgeLine.X1)
+                CurvOffx = 0;
+            if (EdgeLine.Y1 == EdgeLine.Y2)
+                CurvOffy = 0;
+
+
+
+            Point CurveCenterPoint = new Point((EdgeLine.X1 + EdgeLine.X2) / 2, (EdgeLine.Y1 + EdgeLine.Y2) / 2 + CurvOffy);
+            Path.Data = PathGeometry.Parse("M " + EdgeLine.X1 + "," + EdgeLine.Y1 + " C " + EdgeLine.X1 + "," + EdgeLine.Y1 + " " + (int)(CenterPoint.X + CurvOffx) + "," + (int)(CenterPoint.Y + CurvOffy) + " " + EdgeLine.X2 + "," + EdgeLine.Y2);
+
+            double Offx = 5, Offy = 2;
+            if (EdgeLine.X2 - EdgeLine.X1 < 0)
+                Offx = -Offx;
+            if (EdgeLine.Y1 - EdgeLine.Y2 < 0)
+                Offy = -Offy;
+
+            Arrow.Points.Clear();
+            Arrow.Points.Add(new Point(CurveCenterPoint.X - 10, CurveCenterPoint.Y - 10));
+            Arrow.Points.Add(new Point(CurveCenterPoint.X - Offx - 10, CurveCenterPoint.Y + Offy - 10));
+            Arrow.Points.Add(new Point(CurveCenterPoint.X - Offx - 10, CurveCenterPoint.Y - Offy - 10));
+
+            ConditionTextBlock.Margin = new Thickness(CurveCenterPoint.X, CurveCenterPoint.Y,0,0);
+            ConditionTextBlock.Text = ContainingEdge.GetCondition.ToString();
         }
 
         private void UpdateVertexStats()
@@ -89,26 +127,21 @@ namespace Tura.Controls
             Path.StrokeThickness = 2;
             Path.HorizontalAlignment = HorizontalAlignment.Left;
             Path.VerticalAlignment = VerticalAlignment.Top;
+            Arrow.Stroke = Brushes.Black;
+            Arrow.StrokeThickness = 2;
+            Arrow.Fill = Brushes.Black;
 
-            Point p = new Point((EdgeLine.X1 + EdgeLine.X2) / 2, (EdgeLine.Y1 + EdgeLine.Y2) / 2);
-            double CurvOffx, CurvOffy;
+            
 
-            CurvOffx = EdgeLine.X2 - EdgeLine.X1;
-            CurvOffy = EdgeLine.Y1 - EdgeLine.Y2;
-
-            Path.Data = PathGeometry.Parse("M " + EdgeLine.X1 + "," + EdgeLine.Y1 + " C " + EdgeLine.X1 + "," + EdgeLine.Y1 + " " + (int)(p.X + CurvOffx) + "," + (int)(p.Y + CurvOffy) + " " + EdgeLine.X2 + "," + EdgeLine.Y2);
-
+            
+            ControlGrid.Children.Add(ConditionTextBlock);
+            ControlGrid.Children.Add(Arrow);
             ControlGrid.Children.Add(Path);
-            EdgeLine.HorizontalAlignment = HorizontalAlignment.Left;
-            EdgeLine.VerticalAlignment = VerticalAlignment.Top;
-            
-            
-            
-            
-            EdgeLine.Stroke = Brushes.Black;
-            EdgeLine.StrokeThickness = 2;
-            //ControlGrid.Children.Add(EdgeLine);
-            
+            UpdateVertexStats();
+            if (ContainingEdge.IsSelfConnected())
+                DrawSelfEdge();
+            else
+                DrawCurvedEdge();
         }
     }
 }
