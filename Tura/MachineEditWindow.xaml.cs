@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Tura.Models;
 using Tura.Controls;
-
+using Tura.Util;
 namespace Tura
 {
     /// <summary>
@@ -21,6 +21,8 @@ namespace Tura
     /// </summary>
     public partial class MachineEditWindow : Window
     {
+        bool ConnectionRequested = false;
+        Vertex ConnectionRequestSource;
         Machine ContainingMachine;
         public MachineEditWindow(Machine containingmachine)
         {
@@ -47,10 +49,37 @@ namespace Tura
 
             foreach (Vertex v in ContainingMachine.Vertices)
             {
-                GraphGrid.Children.Add(new VertexControl(v));
+                VertexControl vc = new VertexControl(v);
+                vc.ConnectRequest += Vc_ConnectRequest;
+                vc.MouseDown += Vc_MouseDown;
+                GraphGrid.Children.Add(vc);
             }
 
            
+        }
+
+        private void Vc_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            VertexControl control = sender as VertexControl;
+            if (ConnectionRequested)
+            {
+                if (ContainingMachine.Edges.Contains(new Edge(ConnectionRequestSource, control.ContainingVertex, 'c'), new EdgeComparer()))
+                {
+                    MessageBox.Show("Edge is already added", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    ConnectionRequested = false;
+                    return;
+                }
+                ContainingMachine.Edges.Add(new Edge(ConnectionRequestSource, control.ContainingVertex, 'c'));
+                ConnectionRequested = false;
+                InvalidateMachineGraph();
+            }
+
+        }
+
+        private void Vc_ConnectRequest(object sender, Vertex e)
+        {
+            ConnectionRequested = true;
+            ConnectionRequestSource = e;
         }
     }
 }

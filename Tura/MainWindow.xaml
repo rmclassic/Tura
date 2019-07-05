@@ -20,7 +20,10 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-
-        <Grid Name="MachinesGrid" Background="White" Margin="0,20,0,20" Panel.ZIndex="2"/>
+        <ScrollViewer Margin="0,20,0,20" Background="White" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Panel.ZIndex="2">
+            <Grid Name="MachinesGrid" Background="White">
+            </Grid>
+        </ScrollViewer>
     </Grid>
+    
 </Window>

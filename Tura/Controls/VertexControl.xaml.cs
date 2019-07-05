@@ -21,9 +21,10 @@ namespace Tura.Controls
     /// </summary>
     public partial class VertexControl : UserControl
     {
+        public event EventHandler<Vertex> ConnectRequest;
         bool Dragging = false;
         Point MouseLastPosition = new Point();
-        Vertex ContainingVertex;
+        public Vertex ContainingVertex;
         public VertexControl(Vertex containingvertex)
         {
             InitializeComponent();
@@ -59,6 +60,16 @@ namespace Tura.Controls
                 Margin = new Thickness(Margin.Left + (p.X - MouseLastPosition.X), Margin.Top + (p.Y - MouseLastPosition.Y), Margin.Right, Margin.Bottom);
                 ContainingVertex.Location = new Point(Margin.Left, Margin.Top);
             }
+        }
+
+        private void ConnectTo_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectRequest.Invoke(this, ContainingVertex);
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

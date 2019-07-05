@@ -10,8 +10,8 @@
         <Ellipse Width="100" Height="100" Stroke="Black" Fill="LightGray" StrokeThickness="2">
             <Ellipse.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Connect to"/>
-                    <MenuItem Header="Delete"/>
+                    <MenuItem Header="Connect to" Click="ConnectTo_Click"/>
+                    <MenuItem Header="Delete" Click="MenuItem_Click_1"/>
                     <MenuItem Header="Rename"/>
                 </ContextMenu>
             </Ellipse.ContextMenu>
