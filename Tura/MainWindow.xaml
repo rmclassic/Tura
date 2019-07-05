@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Menu DockPanel.Dock="Top">
+        <Menu DockPanel.Dock="Top" Panel.ZIndex="1">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open Project"/>
                 <MenuItem Header="_Close Project"/>
@@ -21,6 +21,6 @@
             </MenuItem>
         </Menu>
 
-        <Grid Name="MachinesGrid" Background="White" Margin="0,20,0,20"/>
+        <Grid Name="MachinesGrid" Background="White" Margin="0,20,0,20" Panel.ZIndex="2"/>
     </Grid>
 </Window>

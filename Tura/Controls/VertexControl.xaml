@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tura.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Width="100" Height="100">
+             d:DesignHeight="100" d:DesignWidth="100" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top">
     <Grid>
         <Ellipse Width="100" Height="100" Stroke="Black" Fill="LightGray" StrokeThickness="2"/>
         <TextBlock Name="NameTextBlock" Text="V" VerticalAlignment="Center" Foreground="White" TextAlignment="Center" HorizontalAlignment="Center" FontSize="12" Width="100"/>

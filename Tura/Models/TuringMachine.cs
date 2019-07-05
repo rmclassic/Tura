@@ -22,7 +22,9 @@ namespace Tura.Models
             Vertex Finish = new Vertex("F", new Point(20, 20));
             Vertices.Add(Start);
             Vertices.Add(Finish);
-            Edges.Add(new Edge(Start, Finish));
+            Edges.Add(new Edge(Start, Finish, 'c'));
+            Edges.Add(new Edge(Finish, Start, 'c'));
+           Edges.Add(new Edge(Start, Start, 'c'));
         }
     }
 

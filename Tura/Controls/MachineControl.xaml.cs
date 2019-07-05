@@ -48,8 +48,8 @@ namespace Tura
             {
                 Point p = Mouse.GetPosition(this);
                 Margin = new Thickness(Margin.Left + (p.X - MouseLastPosition.X), Margin.Top + (p.Y - MouseLastPosition.Y), Margin.Right, Margin.Bottom);
-                ContainingMachine.Location.X = Margin.Left + (p.X - MouseLastPosition.X);
-                ContainingMachine.Location.Y = Margin.Top + (p.Y - MouseLastPosition.Y);
+                ContainingMachine.Location.X = Margin.Left;
+                ContainingMachine.Location.Y = Margin.Top;
 
             }
 

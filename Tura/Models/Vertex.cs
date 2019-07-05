@@ -8,6 +8,7 @@ namespace Tura.Models
 {
     public class Vertex
     {
+        public event EventHandler VertexMoved;
         public Vertex(string name, Point location)
         {
             Rename(name);
@@ -19,6 +20,7 @@ namespace Tura.Models
             Name = name;
         }
         public string Name;
-        public Point Location;
+        Point location;
+        public Point Location { set { location = value; if (VertexMoved != null) VertexMoved.Invoke(this, null); } get { return location; } }
     }
 }

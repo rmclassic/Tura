@@ -37,13 +37,7 @@ namespace Tura.Controls
 
         private void VertexControl_MouseMove(object sender, MouseEventArgs e)
         {
-            if (Dragging)
-            {
-                Point p = Mouse.GetPosition(this);
-                Margin = new Thickness(Margin.Left + (p.X - MouseLastPosition.X), Margin.Top + (p.Y - MouseLastPosition.Y), Margin.Right, Margin.Bottom);
-                ContainingVertex.Location.X = Margin.Left + (p.X - MouseLastPosition.X);
-                ContainingVertex.Location.Y = Margin.Top + (p.Y - MouseLastPosition.Y);
-            }
+            CheckVertexMove();
         }
 
         private void VertexControl_MouseUp(object sender, MouseButtonEventArgs e)
@@ -55,6 +49,16 @@ namespace Tura.Controls
         {
             MouseLastPosition = Mouse.GetPosition(this);
             Dragging = true;
+        }
+
+        private void CheckVertexMove()
+        {
+            if (Dragging)
+            {
+                Point p = Mouse.GetPosition(this);
+                Margin = new Thickness(Margin.Left + (p.X - MouseLastPosition.X), Margin.Top + (p.Y - MouseLastPosition.Y), Margin.Right, Margin.Bottom);
+                ContainingVertex.Location = new Point(Margin.Left, Margin.Top);
+            }
         }
     }
 }

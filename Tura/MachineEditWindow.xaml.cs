@@ -29,7 +29,6 @@ namespace Tura
             ContainingMachine = containingmachine;
             InvalidateMachineGraph();
         }
-
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             ContainingMachine.Vertices.Add(new Vertex("V", new Point(20, 20)));
@@ -39,10 +38,19 @@ namespace Tura
         void InvalidateMachineGraph()
         {
             GraphGrid.Children.Clear();
+
+
+            foreach (Edge E in ContainingMachine.Edges)
+            {
+                GraphGrid.Children.Add(new EdgeControl(E));
+            }
+
             foreach (Vertex v in ContainingMachine.Vertices)
             {
                 GraphGrid.Children.Add(new VertexControl(v));
             }
+
+           
         }
     }
 }
