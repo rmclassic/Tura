@@ -53,11 +53,31 @@ namespace Tura
             {
                 VertexControl vc = new VertexControl(v);
                 vc.ConnectRequest += Vc_ConnectRequest;
+                vc.RemoveVertex += Vc_RemoveVertex;
                 vc.MouseDown += Vc_MouseDown;
                 GraphGrid.Children.Add(vc);
             }
 
            
+        }
+
+        private void Vc_RemoveVertex(object sender, Vertex e)
+        {
+            ContainingMachine.Vertices.Remove(e);
+            PurgeOrphanEdges();
+            InvalidateMachineGraph();
+        }
+
+        public void PurgeOrphanEdges()
+        {
+            for (int i = 0; i < ContainingMachine.Edges.Count; i++)
+            {
+                if (!ContainingMachine.Vertices.Contains(ContainingMachine.Edges[i].Source) || !ContainingMachine.Vertices.Contains(ContainingMachine.Edges[i].Destination))
+                {
+                    ContainingMachine.Edges.RemoveAt(i);
+                    i--;
+                }
+            }
         }
 
         private void EdgeControl_RemoveEdge(object sender, Edge e)

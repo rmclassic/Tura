@@ -21,6 +21,7 @@ namespace Tura.Controls
     /// </summary>
     public partial class VertexControl : UserControl
     {
+        public event EventHandler<Vertex> RemoveVertex;
         public event EventHandler<Vertex> ConnectRequest;
         bool Dragging = false;
         Point MouseLastPosition = new Point();
@@ -81,7 +82,8 @@ namespace Tura.Controls
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-
+            if (RemoveVertex != null)
+                RemoveVertex.Invoke(this, ContainingVertex);
         }
 
         private void NameTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
