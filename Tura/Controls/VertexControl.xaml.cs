@@ -29,11 +29,23 @@ namespace Tura.Controls
         {
             InitializeComponent();
             ContainingVertex = containingvertex;
-            NameTextBlock.Text = containingvertex.Name;
-            Margin = new Thickness(ContainingVertex.Location.X, ContainingVertex.Location.Y, 0, 0);
+
+            InitializeVertexControl();
+        }
+
+        void InitializeVertexControl()
+        {
+            
             MouseDown += VertexControl_MouseDown;
             MouseUp += VertexControl_MouseUp;
             MouseMove += VertexControl_MouseMove;
+            InvalidateVertexControl();
+        }
+
+        void InvalidateVertexControl()
+        {
+            NameTextBlock.Text = ContainingVertex.Name;
+            Margin = new Thickness(ContainingVertex.Location.X, ContainingVertex.Location.Y, 0, 0);
         }
 
         private void VertexControl_MouseMove(object sender, MouseEventArgs e)
@@ -70,6 +82,34 @@ namespace Tura.Controls
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void NameTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                NameTextBox.Visibility = Visibility.Visible;
+                NameTextBox.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void NameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ContainingVertex.Rename(NameTextBox.Text);
+        }
+
+        private void NameTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            NameTextBox.Visibility = Visibility.Collapsed;
+            InvalidateVertexControl();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            NameTextBox.Visibility = Visibility.Visible;
+            NameTextBox.Focus();
+            e.Handled = true;
         }
     }
 }

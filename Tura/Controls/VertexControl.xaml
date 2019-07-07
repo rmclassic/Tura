@@ -12,11 +12,13 @@
                 <ContextMenu>
                     <MenuItem Header="Connect to" Click="ConnectTo_Click"/>
                     <MenuItem Header="Delete" Click="MenuItem_Click_1"/>
-                    <MenuItem Header="Rename"/>
+                    <MenuItem Header="Rename" Click="MenuItem_Click"/>
                 </ContextMenu>
             </Ellipse.ContextMenu>
         </Ellipse>
         
-        <TextBlock Name="NameTextBlock" Text="V" VerticalAlignment="Center" Foreground="White" TextAlignment="Center" HorizontalAlignment="Center" FontSize="12" Width="100"/>
+        <TextBlock Name="NameTextBlock" Text="V" VerticalAlignment="Center" Foreground="White" TextAlignment="Center" HorizontalAlignment="Center" FontSize="12" Width="100" MouseDown="NameTextBlock_MouseDown"/>
+        <TextBox Name="NameTextBox" Foreground="Black" Visibility="Collapsed" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center" FontSize="12" Width="100" TextChanged="NameTextBox_TextChanged" LostFocus="NameTextBox_LostFocus"/>
+
     </Grid>
 </UserControl>
