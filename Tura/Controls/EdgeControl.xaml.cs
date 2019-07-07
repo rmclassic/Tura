@@ -25,6 +25,8 @@ namespace Tura.Controls
         Edge ContainingEdge;
         Path Path = new Path();
         Polygon Arrow = new Polygon();
+        public event EventHandler<Edge> RemoveEdge;
+
         public EdgeControl(Edge containingedge)
         {
             InitializeComponent();
@@ -107,9 +109,15 @@ namespace Tura.Controls
             Arrow.Points.Add(new Point(CurveCenterPoint.X - 10, CurveCenterPoint.Y - 10));
             Arrow.Points.Add(new Point(CurveCenterPoint.X - Offx - 10, CurveCenterPoint.Y + Offy - 10));
             Arrow.Points.Add(new Point(CurveCenterPoint.X - Offx - 10, CurveCenterPoint.Y - Offy - 10));
-
+            Arrow.MouseLeftButtonDown += Arrow_MouseLeftButtonDown;
             ConditionTextBlock.Margin = new Thickness(CurveCenterPoint.X, CurveCenterPoint.Y,0,0);
             ConditionTextBlock.Text = ContainingEdge.GetCondition.ToString();
+        }
+
+        private void Arrow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
+            
         }
 
         private void UpdateVertexStats()
@@ -130,14 +138,47 @@ namespace Tura.Controls
             Arrow.Stroke = Brushes.Black;
             Arrow.StrokeThickness = 2;
             Arrow.Fill = Brushes.Black;
-
             
+            ConfigureEdgeContextMenu();
 
-            
             ControlGrid.Children.Add(ConditionTextBlock);
             ControlGrid.Children.Add(Arrow);
             ControlGrid.Children.Add(Path);
             UpdateVertexStats();
+            if (ContainingEdge.IsSelfConnected())
+                DrawSelfEdge();
+            else
+                DrawCurvedEdge();
+        }
+
+        void ConfigureEdgeContextMenu()
+        {
+            ContextMenu contextmenu = new ContextMenu();
+            TextBox conditiontextbox = new TextBox() { Width = contextmenu.Width, Text = ContainingEdge.GetCondition.ToString(), MaxLength = 1 };
+            MenuItem removeedgemenuitem = new MenuItem() { Header = "Remove edge" };
+            removeedgemenuitem.Click += Removeedgemenuitem_Click;
+            conditiontextbox.TextChanged += Conditiontextbox_TextChanged;
+            contextmenu.Items.Add(conditiontextbox);
+            contextmenu.Items.Add(removeedgemenuitem);
+            
+
+            Arrow.ContextMenu = contextmenu;
+            Path.ContextMenu = contextmenu;
+
+        }
+
+        private void Removeedgemenuitem_Click(object sender, RoutedEventArgs e)
+        {
+            if (RemoveEdge != null)
+                RemoveEdge.Invoke(this, ContainingEdge);
+        }
+
+        private void Conditiontextbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox t = sender as TextBox;
+            if (t.Text != "")
+            ContainingEdge.SetCondition(t.Text[0]);
+
             if (ContainingEdge.IsSelfConnected())
                 DrawSelfEdge();
             else

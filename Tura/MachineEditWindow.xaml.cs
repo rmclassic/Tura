@@ -44,7 +44,9 @@ namespace Tura
 
             foreach (Edge E in ContainingMachine.Edges)
             {
-                GraphGrid.Children.Add(new EdgeControl(E));
+                EdgeControl EC = new EdgeControl(E);
+                EC.RemoveEdge += EdgeControl_RemoveEdge;
+                GraphGrid.Children.Add(EC);
             }
 
             foreach (Vertex v in ContainingMachine.Vertices)
@@ -56,6 +58,12 @@ namespace Tura
             }
 
            
+        }
+
+        private void EdgeControl_RemoveEdge(object sender, Edge e)
+        {
+            ContainingMachine.Edges.Remove(e);
+            InvalidateMachineGraph();
         }
 
         private void Vc_MouseDown(object sender, MouseButtonEventArgs e)

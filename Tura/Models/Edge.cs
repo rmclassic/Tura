@@ -23,6 +23,13 @@ namespace Tura.Models
         {
             return SelfConnectedVertex;
         }
+
+        public bool SetCondition(char c)
+        {
+            conditiongate = c;
+            return true;
+        }
+
         bool SelfConnectedVertex;
         Vertex source;
         Vertex destination;

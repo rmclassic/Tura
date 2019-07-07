@@ -19,8 +19,8 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Grid Name="GraphGrid" Background="White" Margin="0,20,0,20"/>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,20,0,20">
+            <Grid Name="GraphGrid" Background="White"/>
         </ScrollViewer>
     </Grid>
 </Window>
