@@ -13,12 +13,14 @@ namespace Tura.Models
         {
             Rename(name);
             Location = location;
+            IsFinishState = false;
         }
 
         public void Rename(string name)
         {
             Name = name;
         }
+        public bool IsFinishState;
         public string Name;
         Point location;
         public Point Location { set { location = value; if (VertexMoved != null) VertexMoved.Invoke(this, null); } get { return location; } }

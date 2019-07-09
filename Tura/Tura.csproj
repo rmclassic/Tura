@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\DFAMachine.cs" />
     <Compile Include="Util\EdgeComparer.cs" />
     <Page Include="Controls\EdgeControl.xaml">
       <SubType>Designer</SubType>

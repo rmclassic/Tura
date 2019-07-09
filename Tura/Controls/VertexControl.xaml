@@ -8,15 +8,34 @@
              d:DesignHeight="100" d:DesignWidth="100" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top">
     <Grid>
         <Ellipse Width="100" Height="100" Stroke="Black" Fill="LightGray" StrokeThickness="2">
+
             <Ellipse.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Connect to" Click="ConnectTo_Click"/>
                     <MenuItem Header="Delete" Click="MenuItem_Click_1"/>
                     <MenuItem Header="Rename" Click="MenuItem_Click"/>
+                    <MenuItem Header="Change Finish State" Click="MenuItem_Click_2"/>
                 </ContextMenu>
             </Ellipse.ContextMenu>
+
+
         </Ellipse>
+
         
+        
+        <Ellipse Visibility="Collapsed" Name="FinishStateVisual" Width="90" Height="90" Stroke="Black" Fill="LightGray" StrokeThickness="2">
+            <Ellipse.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Connect to" Click="ConnectTo_Click"/>
+                    <MenuItem Header="Delete" Click="MenuItem_Click_1"/>
+                    <MenuItem Header="Rename" Click="MenuItem_Click"/>
+                    <MenuItem Header="Change Finish State" Click="MenuItem_Click_2"/>
+                </ContextMenu>
+            </Ellipse.ContextMenu>
+
+
+        </Ellipse>
+
         <TextBlock Name="NameTextBlock" Text="V" VerticalAlignment="Center" Foreground="White" TextAlignment="Center" HorizontalAlignment="Center" FontSize="12" Width="100" MouseDown="NameTextBlock_MouseDown"/>
         <TextBox Name="NameTextBox" Foreground="Black" Visibility="Collapsed" VerticalAlignment="Center" TextAlignment="Center" HorizontalAlignment="Center" FontSize="12" Width="100" TextChanged="NameTextBox_TextChanged" LostFocus="NameTextBox_LostFocus"/>
 

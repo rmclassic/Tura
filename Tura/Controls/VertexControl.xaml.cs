@@ -45,6 +45,11 @@ namespace Tura.Controls
 
         void InvalidateVertexControl()
         {
+            if (ContainingVertex.IsFinishState)
+                FinishStateVisual.Visibility = Visibility.Visible;
+            else
+                FinishStateVisual.Visibility = Visibility.Collapsed;
+
             NameTextBlock.Text = ContainingVertex.Name;
             Margin = new Thickness(ContainingVertex.Location.X, ContainingVertex.Location.Y, 0, 0);
         }
@@ -112,6 +117,12 @@ namespace Tura.Controls
             NameTextBox.Visibility = Visibility.Visible;
             NameTextBox.Focus();
             e.Handled = true;
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            ContainingVertex.IsFinishState = !ContainingVertex.IsFinishState;
+            InvalidateVertexControl();
         }
     }
 }
