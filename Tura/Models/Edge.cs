@@ -11,7 +11,8 @@ namespace Tura.Models
 
         public Edge(Vertex start, Vertex finish, char condition)
         {
-            conditiongate = condition;
+            conditiongate = new ConditionList();
+            conditiongate.Add(condition);
             Source = start;
             Destination = finish;
             if (Source == Destination)
@@ -26,15 +27,21 @@ namespace Tura.Models
 
         public bool SetCondition(char c)
         {
-            conditiongate = c;
+            conditiongate.Add(c);
+
             return true;
+        }
+
+        public void ClearConditions()
+        {
+            conditiongate.Clear();
         }
 
         bool SelfConnectedVertex;
         Vertex source;
         Vertex destination;
-        char conditiongate;
-        public char GetCondition { get { return conditiongate; } }
+        ConditionList conditiongate;
+        public ConditionList GetConditions { get { return conditiongate; } }
         public Vertex Source { set { source = value; SelfConnectedVertex = (source == destination); } get { return source; } }
         public Vertex Destination { set { destination = value; SelfConnectedVertex = (source == destination); } get { return destination; } }
 

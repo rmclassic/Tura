@@ -55,7 +55,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DFAConditionEditWindow.xaml.cs">
+      <DependentUpon>DFAConditionEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ConditionList.cs" />
     <Compile Include="Models\DFAMachine.cs" />
+    <Compile Include="Util\DFAMachineBroker.cs" />
+    <Compile Include="Util\DFAMachineDebugger.cs" />
     <Compile Include="Util\EdgeComparer.cs" />
     <Page Include="Controls\EdgeControl.xaml">
       <SubType>Designer</SubType>
@@ -66,6 +72,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\VertexControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DFAConditionEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

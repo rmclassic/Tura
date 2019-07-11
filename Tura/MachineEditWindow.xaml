@@ -7,10 +7,16 @@
         mc:Ignorable="d"
         Title="MachineEditWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="_New Vertex" Click="MenuItem_Click"/>
+            </ContextMenu>
+        </Grid.ContextMenu>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Header="_Open Machine"/>
                 <MenuItem Header="_Close"/>
+                
             </MenuItem>
 
             <MenuItem Header="_Graph">
@@ -18,6 +24,10 @@
                     <MenuItem Header="_New Vertex" Click="MenuItem_Click"/>
                 </MenuItem>
             </MenuItem>
+            <TextBlock Text="Input:"/>
+            <TextBox Width="100" Name="InputTextBox"/>
+            <Button Name="StartMachineButton" Content="Start Machine" Width="100" Click="StartMachineButton_Click"/>
+
         </Menu>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,20,0,20">
             <Grid Name="GraphGrid" Background="White"/>

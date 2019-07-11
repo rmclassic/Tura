@@ -40,10 +40,7 @@ namespace Tura.Controls
         {
 
             UpdateVertexStats();
-            if (ContainingEdge.IsSelfConnected())
-                DrawSelfEdge();
-            else
-                DrawCurvedEdge();
+            InvalidateEdge();
 
         }
 
@@ -51,11 +48,7 @@ namespace Tura.Controls
         {
 
             UpdateVertexStats();
-
-            if (ContainingEdge.IsSelfConnected())
-                DrawSelfEdge();
-            else
-                DrawCurvedEdge();
+            InvalidateEdge();
 
         }
 
@@ -75,7 +68,7 @@ namespace Tura.Controls
             Arrow.Points.Add(new Point(CenterPoint.X - Offx, CenterPoint.Y - Offy));
 
             ConditionTextBlock.Margin = new Thickness(CenterPoint.X, CenterPoint.Y, 0, 0);
-            ConditionTextBlock.Text = ContainingEdge.GetCondition.ToString();
+            ConditionTextBlock.Text = ContainingEdge.GetConditions.ToString();
             
         }
 
@@ -111,7 +104,7 @@ namespace Tura.Controls
             Arrow.Points.Add(new Point(CurveCenterPoint.X - Offx - 10, CurveCenterPoint.Y - Offy - 10));
             Arrow.MouseLeftButtonDown += Arrow_MouseLeftButtonDown;
             ConditionTextBlock.Margin = new Thickness(CurveCenterPoint.X, CurveCenterPoint.Y,0,0);
-            ConditionTextBlock.Text = ContainingEdge.GetCondition.ToString();
+            ConditionTextBlock.Text = ContainingEdge.GetConditions.ToString();
         }
 
         private void Arrow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -145,20 +138,17 @@ namespace Tura.Controls
             ControlGrid.Children.Add(Arrow);
             ControlGrid.Children.Add(Path);
             UpdateVertexStats();
-            if (ContainingEdge.IsSelfConnected())
-                DrawSelfEdge();
-            else
-                DrawCurvedEdge();
+            InvalidateEdge();
         }
 
         void ConfigureEdgeContextMenu()
         {
             ContextMenu contextmenu = new ContextMenu();
-            TextBox conditiontextbox = new TextBox() { Width = contextmenu.Width, Text = ContainingEdge.GetCondition.ToString(), MaxLength = 1 };
+            MenuItem editconditionitem = new MenuItem() { Width = contextmenu.Width, Header = "Edit conditions"};
             MenuItem removeedgemenuitem = new MenuItem() { Header = "Remove edge" };
             removeedgemenuitem.Click += Removeedgemenuitem_Click;
-            conditiontextbox.TextChanged += Conditiontextbox_TextChanged;
-            contextmenu.Items.Add(conditiontextbox);
+            editconditionitem.Click += Editconditionitem_Click;
+            contextmenu.Items.Add(editconditionitem);
             contextmenu.Items.Add(removeedgemenuitem);
             
 
@@ -167,22 +157,27 @@ namespace Tura.Controls
 
         }
 
-        private void Removeedgemenuitem_Click(object sender, RoutedEventArgs e)
+        void InvalidateEdge()
         {
-            if (RemoveEdge != null)
-                RemoveEdge.Invoke(this, ContainingEdge);
-        }
-
-        private void Conditiontextbox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox t = sender as TextBox;
-            if (t.Text != "")
-            ContainingEdge.SetCondition(t.Text[0]);
-
             if (ContainingEdge.IsSelfConnected())
                 DrawSelfEdge();
             else
                 DrawCurvedEdge();
+        }
+
+        private void Editconditionitem_Click(object sender, RoutedEventArgs e)
+        {
+            DFAConditionEditWindow EditWindow = new DFAConditionEditWindow(ContainingEdge);
+
+            EditWindow.ShowDialog();
+            InvalidateEdge();
+            
+        }
+
+        private void Removeedgemenuitem_Click(object sender, RoutedEventArgs e)
+        {
+            if (RemoveEdge != null)
+                RemoveEdge.Invoke(this, ContainingEdge);
         }
     }
 }

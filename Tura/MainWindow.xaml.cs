@@ -29,7 +29,7 @@ namespace Tura
         public MainWindow()
         {
             InitializeComponent();
-            Machines.Add(new TuringMachine("New Turing Machine"));
+            Machines.Add(new DFAMachine("New DFA Machine"));
             InvalidateMachinesGrid();
         }
 
@@ -47,8 +47,8 @@ namespace Tura
         {
             MenuItem item = sender as MenuItem;
 
-            if (item.Header.ToString() == "Turing Machine")
-                Machines.Add(new TuringMachine("New Turing Machine"));
+            if (item.Header.ToString() == "DFA Machine")
+                Machines.Add(new DFAMachine("New DFA Machine"));
 
             InvalidateMachinesGrid();
         }

@@ -63,22 +63,10 @@ namespace Tura
 
         private void Vc_RemoveVertex(object sender, Vertex e)
         {
-            ContainingMachine.Vertices.Remove(e);
-            PurgeOrphanEdges();
+            ContainingMachine.RemoveVertex(e);
             InvalidateMachineGraph();
         }
-
-        public void PurgeOrphanEdges()
-        {
-            for (int i = 0; i < ContainingMachine.Edges.Count; i++)
-            {
-                if (!ContainingMachine.Vertices.Contains(ContainingMachine.Edges[i].Source) || !ContainingMachine.Vertices.Contains(ContainingMachine.Edges[i].Destination))
-                {
-                    ContainingMachine.Edges.RemoveAt(i);
-                    i--;
-                }
-            }
-        }
+      
 
         private void EdgeControl_RemoveEdge(object sender, Edge e)
         {
@@ -108,6 +96,46 @@ namespace Tura
         {
             ConnectionRequested = true;
             ConnectionRequestSource = e;
+        }
+
+        private void StartMachineButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (InputTextBox.Text == "")
+            {
+                MessageBox.Show("No input is given to the machine.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            Queue<char> Conditionqueue = new Queue<char>();
+            DFAMachineBroker broker = new DFAMachineBroker(ContainingMachine);
+            try {
+            broker.InitializeMachine();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
+            Vertex TempVertex = null;
+            foreach (char c in InputTextBox.Text)
+            {
+                try
+                {
+                    TempVertex = broker.Step(c, TempVertex);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occured: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
+            }
+            if (TempVertex == null)
+            {
+                MessageBox.Show("INPUT NOT ACCEPTED");
+            }
+
+            else if (TempVertex.IsFinishState)
+                MessageBox.Show("INPUT ACCEPTED");
         }
     }
 }

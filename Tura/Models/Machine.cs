@@ -14,6 +14,7 @@ namespace Tura.Models
         public List<Vertex> Vertices;
         public List<Edge> Edges;
         public MachineClass Class;
+        public abstract void RemoveVertex(Vertex V);
     }
 
     public enum MachineClass { DFA, Turing }

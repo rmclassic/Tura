@@ -25,6 +25,15 @@ namespace Tura.Models
             Vertices.Add(Start);
             Vertices.Add(Finish);
         }
+        public void PurgeOrphanEdges()
+        {
+
+        }
+
+        public override void RemoveVertex(Vertex V)
+        {
+
+        }
     }
 
 
