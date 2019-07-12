@@ -168,10 +168,10 @@ namespace Tura.Controls
 
         private void Editconditionitem_Click(object sender, RoutedEventArgs e)
         {
-            //DFAConditionEditWindow EditWindow = new DFAConditionEditWindow(ContainingEdge);
+            TuringConditionEditWindow EditWindow = new TuringConditionEditWindow(ContainingEdge.GetConditions);
 
-            //EditWindow.ShowDialog();
-            //InvalidateEdge();
+            EditWindow.ShowDialog();
+            InvalidateEdge();
 
         }
 

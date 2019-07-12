@@ -27,9 +27,9 @@ namespace Tura.Models
             return Condition.ToString() + ", " + ReplaceBy.ToString() + ", " + ((To == Transition.Right) ? "R" : "L");
         }
 
-        char Condition;
-        char ReplaceBy;
-        Transition To;
+        public char Condition;
+        public char ReplaceBy;
+        public Transition To;
     }
 
     public enum Transition { Left, Right };
