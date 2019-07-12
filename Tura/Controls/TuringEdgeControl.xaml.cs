@@ -13,23 +13,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tura.Models;
+
 namespace Tura.Controls
 {
     /// <summary>
-    /// Interaction logic for EdgeControl.xaml
+    /// Interaction logic for TuringEdgeControl.xaml
     /// </summary>
-    public partial class EdgeControl : UserControl
+    public partial class TuringEdgeControl : UserControl
     {
         Line EdgeLine;
         TextBlock ConditionTextBlock = new TextBlock();
-        Edge<char> ContainingEdge;
+        Edge<TuringCondition> ContainingEdge;
         Path Path = new Path();
         Polygon Arrow = new Polygon();
-        public event EventHandler<Edge<char>> RemoveEdge;
+        public event EventHandler<Edge<TuringCondition>> RemoveEdge;
 
-        public EdgeControl(Edge<char> containingedge)
+        public TuringEdgeControl(Edge<TuringCondition> containingedge)
         {
-            
             InitializeComponent();
             ContainingEdge = containingedge;
             InitializeEdge();
@@ -49,7 +49,6 @@ namespace Tura.Controls
         {
 
             UpdateVertexStats();
-
             InvalidateEdge();
 
         }
@@ -70,14 +69,14 @@ namespace Tura.Controls
             Arrow.Points.Add(new Point(CenterPoint.X - Offx, CenterPoint.Y - Offy));
 
             ConditionTextBlock.Margin = new Thickness(CenterPoint.X, CenterPoint.Y, 0, 0);
-            ConditionTextBlock.Text = ContainingEdge.GetConditions.ToString();
-            
+            ConditionTextBlock.Text = ContainingEdge.GetConditionsAsString;
+
         }
 
         private void DrawCurvedEdge()
         {
             Point CenterPoint = new Point((EdgeLine.X1 + EdgeLine.X2) / 2, (EdgeLine.Y1 + EdgeLine.Y2) / 2);
-            
+
             double CurvOffx = 50, CurvOffy = 50;
             if (EdgeLine.X2 - EdgeLine.X1 < 0)
                 CurvOffx = -CurvOffx;
@@ -105,14 +104,14 @@ namespace Tura.Controls
             Arrow.Points.Add(new Point(CurveCenterPoint.X - Offx - 10, CurveCenterPoint.Y + Offy - 10));
             Arrow.Points.Add(new Point(CurveCenterPoint.X - Offx - 10, CurveCenterPoint.Y - Offy - 10));
             Arrow.MouseLeftButtonDown += Arrow_MouseLeftButtonDown;
-            ConditionTextBlock.Margin = new Thickness(CurveCenterPoint.X, CurveCenterPoint.Y,0,0);
+            ConditionTextBlock.Margin = new Thickness(CurveCenterPoint.X, CurveCenterPoint.Y, 0, 0);
             ConditionTextBlock.Text = ContainingEdge.GetConditionsAsString;
         }
 
         private void Arrow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            
-            
+
+
         }
 
         private void UpdateVertexStats()
@@ -133,7 +132,7 @@ namespace Tura.Controls
             Arrow.Stroke = Brushes.Black;
             Arrow.StrokeThickness = 2;
             Arrow.Fill = Brushes.Black;
-            
+
             ConfigureEdgeContextMenu();
 
             ControlGrid.Children.Add(ConditionTextBlock);
@@ -146,13 +145,13 @@ namespace Tura.Controls
         void ConfigureEdgeContextMenu()
         {
             ContextMenu contextmenu = new ContextMenu();
-            MenuItem editconditionitem = new MenuItem() { Width = contextmenu.Width, Header = "Edit conditions"};
+            MenuItem editconditionitem = new MenuItem() { Width = contextmenu.Width, Header = "Edit conditions" };
             MenuItem removeedgemenuitem = new MenuItem() { Header = "Remove edge" };
             removeedgemenuitem.Click += Removeedgemenuitem_Click;
             editconditionitem.Click += Editconditionitem_Click;
             contextmenu.Items.Add(editconditionitem);
             contextmenu.Items.Add(removeedgemenuitem);
-            
+
 
             Arrow.ContextMenu = contextmenu;
             Path.ContextMenu = contextmenu;
@@ -169,11 +168,11 @@ namespace Tura.Controls
 
         private void Editconditionitem_Click(object sender, RoutedEventArgs e)
         {
-            DFAConditionEditWindow EditWindow = new DFAConditionEditWindow(ContainingEdge);
+            //DFAConditionEditWindow EditWindow = new DFAConditionEditWindow(ContainingEdge);
 
-            EditWindow.ShowDialog();
-            InvalidateEdge();
-            
+            //EditWindow.ShowDialog();
+            //InvalidateEdge();
+
         }
 
         private void Removeedgemenuitem_Click(object sender, RoutedEventArgs e)

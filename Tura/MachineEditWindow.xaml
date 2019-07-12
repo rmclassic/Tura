@@ -16,7 +16,7 @@
             <MenuItem Header="_File">
                 <MenuItem Header="_Open Machine"/>
                 <MenuItem Header="_Close"/>
-                
+
             </MenuItem>
 
             <MenuItem Header="_Graph">
@@ -32,5 +32,32 @@
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,20,0,20">
             <Grid Name="GraphGrid" Background="White"/>
         </ScrollViewer>
+        <TextBox Background="Transparent" Foreground="Black" Name="NotifText" VerticalAlignment="Bottom" Margin="0,0,0,20" FontSize="36" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" IsEnabled="False">
+            Notifications
+            <TextBox.RenderTransform>
+                <TranslateTransform X="0" Y="0" x:Name="TextTrans"/>
+            </TextBox.RenderTransform>
+
+            <!-- Animates the text block's width. -->
+
+            <TextBox.Triggers>
+
+                <EventTrigger RoutedEvent="TextBox.TextChanged">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="NotifText" Storyboard.TargetProperty="(TextBox.Opacity)">
+                                <LinearDoubleKeyFrame Value="0" KeyTime="0:0:0.1"/>
+                                <LinearDoubleKeyFrame Value="1" KeyTime="0:0:0.2"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TextTrans" Storyboard.TargetProperty="(TranslateTransform.Y)">
+                                <LinearDoubleKeyFrame Value="-10" KeyTime="0:0:0.1"/>
+                                <DiscreteDoubleKeyFrame Value="10"/>
+                                <LinearDoubleKeyFrame Value="0" KeyTime="0:0:0.2"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </TextBox.Triggers>
+        </TextBox>
     </Grid>
 </Window>

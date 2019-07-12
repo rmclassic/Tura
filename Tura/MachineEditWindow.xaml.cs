@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using Tura.Models;
 using Tura.Controls;
 using Tura.Util;
+using System.Collections.Concurrent;
 namespace Tura
 {
     /// <summary>
@@ -23,14 +24,45 @@ namespace Tura
     {
         bool ConnectionRequested = false;
         Vertex ConnectionRequestSource;
-        Machine ContainingMachine;
-        public MachineEditWindow(Machine containingmachine)
+        DFAMachine ContainingMachine;
+        ConcurrentQueue<string> NotificationsQueue = new ConcurrentQueue<string>();
+        public MachineEditWindow(DFAMachine containingmachine)
         {
-            
+
             InitializeComponent();
             ContainingMachine = containingmachine;
+            Task.Run(NotificationChangeLoop);
             InvalidateMachineGraph();
         }
+
+        void SetNotificationText(string text)
+        {
+            NotificationsQueue.Enqueue(text);
+        }
+
+        async void NotificationChangeLoop()
+        {
+            string currentnotif = "";
+            while (true)
+            {
+                if (NotificationsQueue.TryDequeue(out currentnotif))
+                {
+                    NotifText.Dispatcher.Invoke(() =>
+                    {
+                        NotifText.Text = currentnotif;
+                    });
+                }
+                else
+                {
+                    NotifText.Dispatcher.Invoke(() =>
+                    {
+                        NotifText.Text = "";
+                    });
+                }
+                await Task.Delay(1000);
+            }
+        }
+
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             ContainingMachine.Vertices.Add(new Vertex("V", new Point(20, 20)));
@@ -42,7 +74,7 @@ namespace Tura
             GraphGrid.Children.Clear();
 
 
-            foreach (Edge E in ContainingMachine.Edges)
+            foreach (Edge<char> E in ContainingMachine.Edges)
             {
                 EdgeControl EC = new EdgeControl(E);
                 EC.RemoveEdge += EdgeControl_RemoveEdge;
@@ -58,7 +90,7 @@ namespace Tura
                 GraphGrid.Children.Add(vc);
             }
 
-           
+
         }
 
         private void Vc_RemoveVertex(object sender, Vertex e)
@@ -66,9 +98,9 @@ namespace Tura
             ContainingMachine.RemoveVertex(e);
             InvalidateMachineGraph();
         }
-      
 
-        private void EdgeControl_RemoveEdge(object sender, Edge e)
+
+        private void EdgeControl_RemoveEdge(object sender, Edge<char> e)
         {
             ContainingMachine.Edges.Remove(e);
             InvalidateMachineGraph();
@@ -79,13 +111,13 @@ namespace Tura
             VertexControl control = sender as VertexControl;
             if (ConnectionRequested)
             {
-                if (ContainingMachine.Edges.Contains(new Edge(ConnectionRequestSource, control.ContainingVertex, 'c'), new EdgeComparer()))
+                if (ContainingMachine.Edges.Contains(new Edge<char>(ConnectionRequestSource, control.ContainingVertex, 'c'), new EdgeComparer<char>()))
                 {
                     MessageBox.Show("Edge is already added", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     ConnectionRequested = false;
                     return;
                 }
-                ContainingMachine.Edges.Add(new Edge(ConnectionRequestSource, control.ContainingVertex, 'c'));
+                ContainingMachine.Edges.Add(new Edge<char>(ConnectionRequestSource, control.ContainingVertex, 'c'));
                 ConnectionRequested = false;
                 InvalidateMachineGraph();
             }
@@ -108,8 +140,9 @@ namespace Tura
 
             Queue<char> Conditionqueue = new Queue<char>();
             DFAMachineBroker broker = new DFAMachineBroker(ContainingMachine);
-            try {
-            broker.InitializeMachine();
+            try
+            {
+                broker.InitializeMachine();
             }
             catch (Exception ex)
             {
@@ -122,20 +155,26 @@ namespace Tura
                 try
                 {
                     TempVertex = broker.Step(c, TempVertex);
+                    if (TempVertex == null)
+                    {
+                        SetNotificationText("Cursor stopped on condition " + c);
+                        return;
+                    }
+
+                    SetNotificationText("Cursor Went to " + TempVertex.Name);
+
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("An error occured: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    SetNotificationText("Error: " + ex.Message);
                     return;
                 }
             }
-            if (TempVertex == null)
-            {
-                MessageBox.Show("INPUT NOT ACCEPTED");
-            }
+            if (!TempVertex.IsFinishState)
+                SetNotificationText("INPUT NOT ACCEPTED");
 
-            else if (TempVertex.IsFinishState)
-                MessageBox.Show("INPUT ACCEPTED");
+            else
+                SetNotificationText("INPUT ACCEPTED");
         }
     }
 }

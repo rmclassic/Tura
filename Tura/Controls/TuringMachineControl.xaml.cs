@@ -14,21 +14,23 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tura.Models;
 
-namespace Tura
+namespace Tura.Controls
 {
     /// <summary>
-    /// Interaction logic for MachineControl.xaml
+    /// Interaction logic for TuringMachineControl.xaml
     /// </summary>
-    public partial class MachineControl : UserControl
+    public partial class TuringMachineControl : UserControl
     {
-        public DFAMachine ContainingMachine;
+        public TuringMachine ContainingMachine;
         bool Dragging = false;
         Point MouseLastPosition;
-        public MachineControl(DFAMachine containingmachine)
+
+        public TuringMachineControl(TuringMachine containingmachine)
         {
             InitializeComponent();
+
             Margin = new Thickness(containingmachine.Location.X, containingmachine.Location.Y, 0, 0);
-            
+
             ContainingMachine = containingmachine;
             MouseDoubleClick += MachineControl_MouseDoubleClick;
             MachineName.Text = containingmachine.Name;
@@ -37,6 +39,7 @@ namespace Tura
             MouseUp += MachineControl_MouseUp;
         }
 
+
         private void MachineControl_MouseUp(object sender, MouseButtonEventArgs e)
         {
             Dragging = false;
@@ -44,7 +47,7 @@ namespace Tura
 
         private void MachineControl_MouseMove(object sender, MouseEventArgs e)
         {
-            
+
             if (Dragging)
             {
                 Point p = Mouse.GetPosition(this);
@@ -64,8 +67,8 @@ namespace Tura
 
         private void MachineControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
-            new MachineEditWindow(ContainingMachine).ShowDialog();
+
+            new TuringMachineEditWindow(ContainingMachine).ShowDialog();
             Dragging = false;
             e.Handled = true;
         }

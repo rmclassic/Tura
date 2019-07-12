@@ -9,10 +9,10 @@ namespace Tura.Util
 {
     class DFAMachineBroker
     {
-        Machine ContainingMachine;
+        DFAMachine ContainingMachine;
         bool Initialized = false;
 
-        public DFAMachineBroker(Machine machine)
+        public DFAMachineBroker(DFAMachine machine)
         {
             ContainingMachine = machine;
         }
@@ -45,7 +45,7 @@ namespace Tura.Util
             if (sourcevertex == null)
                 sourcevertex = GetStartState();
 
-            foreach (Edge e in ContainingMachine.Edges)
+            foreach (Edge<char> e in ContainingMachine.Edges)
             {
                 if (e.Source == sourcevertex && PassesConditions(e, condition))
                     return e.Destination;
@@ -53,7 +53,7 @@ namespace Tura.Util
             return null;
         }
 
-        bool PassesConditions(Edge e, char val)
+        bool PassesConditions(Edge<char> e, char val)
         {
             foreach (char c in e.GetConditions)
             {

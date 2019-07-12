@@ -7,12 +7,12 @@ using System.Windows;
 
 namespace Tura.Models
 {
-    public abstract class Machine
+    public abstract class Machine<T>
     {
         public string Name;
         public Point Location;
         public List<Vertex> Vertices;
-        public List<Edge> Edges;
+        public List<Edge<T>> Edges;
         public MachineClass Class;
         public abstract void RemoveVertex(Vertex V);
     }

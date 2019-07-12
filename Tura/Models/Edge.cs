@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Tura.Models
 {
-    public class Edge
+    public class Edge<T>
     {
 
-        public Edge(Vertex start, Vertex finish, char condition)
+        public Edge(Vertex start, Vertex finish, T condition)
         {
-            conditiongate = new ConditionList();
+            conditiongate = new List<T>();
             conditiongate.Add(condition);
             Source = start;
             Destination = finish;
@@ -25,7 +25,7 @@ namespace Tura.Models
             return SelfConnectedVertex;
         }
 
-        public bool SetCondition(char c)
+        public bool SetCondition(T c)
         {
             conditiongate.Add(c);
 
@@ -40,8 +40,22 @@ namespace Tura.Models
         bool SelfConnectedVertex;
         Vertex source;
         Vertex destination;
-        ConditionList conditiongate;
-        public ConditionList GetConditions { get { return conditiongate; } }
+        List<T> conditiongate;
+        public List<T> GetConditions { get { return conditiongate; } }
+        public string GetConditionsAsString {
+            get
+            {
+                string st = "";
+                foreach (T t in conditiongate)
+                {
+                   st += t.ToString() + '|';
+                }
+
+                st = st.TrimEnd('|');
+
+                return st;
+            }
+        }
         public Vertex Source { set { source = value; SelfConnectedVertex = (source == destination); } get { return source; } }
         public Vertex Destination { set { destination = value; SelfConnectedVertex = (source == destination); } get { return destination; } }
 

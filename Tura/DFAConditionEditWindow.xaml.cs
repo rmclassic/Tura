@@ -20,8 +20,8 @@ namespace Tura
     /// </summary>
     public partial class DFAConditionEditWindow : Window
     {
-        Edge ContainingEdge;
-        public DFAConditionEditWindow(Edge e)
+        Edge<char> ContainingEdge;
+        public DFAConditionEditWindow(Edge<char> e)
         {
             ContainingEdge = e;
             InitializeComponent();

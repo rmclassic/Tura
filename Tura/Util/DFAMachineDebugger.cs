@@ -8,8 +8,8 @@ namespace Tura.Util
 {
     class DFAMachineDebugger
     {
-        Machine ContainingMachine;
-        public DFAMachineDebugger(Machine m)
+        DFAMachine ContainingMachine;
+        public DFAMachineDebugger(DFAMachine m)
         {
             ContainingMachine = m;
         }
@@ -21,15 +21,34 @@ namespace Tura.Util
             if (error != "")
                 return error;
 
-            else
-                return "";
+            error = DebugTwoStartPoint();
+            if (error != "")
+                return error;
+
+            return "";
+        }
+
+        string DebugTwoStartPoint()
+        {
+            bool StartPointFound = false;
+            foreach (Vertex V in ContainingMachine.Vertices)
+            {
+                if (V.IsStartState && StartPointFound == false)
+                    StartPointFound = true;
+
+                else if (V.IsStartState && StartPointFound == true)
+                {
+                    return "There are more than one start points";
+                }
+            }
+            return "";
         }
 
         string DebugEdgeInterference()
         {
-            foreach (Edge e in ContainingMachine.Edges)
+            foreach (Edge<char> e in ContainingMachine.Edges)
             {
-                foreach (Edge E in ContainingMachine.Edges)
+                foreach (Edge<char> E in ContainingMachine.Edges)
                 {
                     if (AreEdgesInterfering(e, E))
                         return "Two edges from " + e.Source.Name + " are Interfering";
@@ -38,15 +57,15 @@ namespace Tura.Util
             return "";
         }
 
-        bool AreEdgesInterfering(Edge e1, Edge e2)
+        bool AreEdgesInterfering(Edge<char> e1, Edge<char> e2)
         {
             if (e1 != e2 && e1.Source == e2.Source)
             {
                 foreach (char c in e1.GetConditions)
                 {
                     foreach (char C in e2.GetConditions)
-                    {
-                        if (c == C)
+                    { 
+                        if (c.ToString() == C.ToString())
                             return true;
                     }
                 }

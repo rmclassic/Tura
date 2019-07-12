@@ -30,7 +30,6 @@ namespace Tura.Controls
         {
             InitializeComponent();
             ContainingVertex = containingvertex;
-
             InitializeVertexControl();
         }
 
@@ -49,6 +48,17 @@ namespace Tura.Controls
                 FinishStateVisual.Visibility = Visibility.Visible;
             else
                 FinishStateVisual.Visibility = Visibility.Collapsed;
+
+            if (ContainingVertex.IsStartState)
+            {
+                StartStateVisual.Visibility = Visibility.Visible;
+                FinishStateVisual.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                StartStateVisual.Visibility = Visibility.Collapsed;
+            }
+
 
             NameTextBlock.Text = ContainingVertex.Name;
             Margin = new Thickness(ContainingVertex.Location.X, ContainingVertex.Location.Y, 0, 0);
@@ -122,6 +132,12 @@ namespace Tura.Controls
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
             ContainingVertex.IsFinishState = !ContainingVertex.IsFinishState;
+            InvalidateVertexControl();
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            ContainingVertex.IsStartState = !ContainingVertex.IsStartState;
             InvalidateVertexControl();
         }
     }

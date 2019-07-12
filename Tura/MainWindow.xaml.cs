@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tura.Models;
-
+using Tura.Controls;
 
 namespace Tura
 {
@@ -23,23 +23,29 @@ namespace Tura
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<Machine> Machines = new List<Machine>();
-
+        private List<TuringMachine> TuringMachines = new List<TuringMachine>();
+        private List<DFAMachine> DFAMachines = new List<DFAMachine>();
 
         public MainWindow()
         {
             InitializeComponent();
-            Machines.Add(new DFAMachine("New DFA Machine"));
+            DFAMachines.Add(new DFAMachine("New DFA Machine"));
             InvalidateMachinesGrid();
         }
 
         public void InvalidateMachinesGrid()
         {
             MachinesGrid.Children.Clear();
-            foreach (Machine machine in Machines)
+            foreach (DFAMachine machine in DFAMachines)
             {
            
                 MachinesGrid.Children.Add(new MachineControl(machine));
+            }
+
+            foreach (TuringMachine machine in TuringMachines)
+            {
+
+                MachinesGrid.Children.Add(new TuringMachineControl(machine));
             }
         }
 
@@ -48,7 +54,9 @@ namespace Tura
             MenuItem item = sender as MenuItem;
 
             if (item.Header.ToString() == "DFA Machine")
-                Machines.Add(new DFAMachine("New DFA Machine"));
+                DFAMachines.Add(new DFAMachine("New DFA Machine"));
+            else if (item.Header.ToString() == "Turing Machine")
+                TuringMachines.Add(new TuringMachine("New Turing Machine"));
 
             InvalidateMachinesGrid();
         }

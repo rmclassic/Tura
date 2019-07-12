@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using Tura.Models;
 namespace Tura.Util
 {
-    class EdgeComparer : IEqualityComparer<Edge>
+    class EdgeComparer<T> : IEqualityComparer<Edge<T>>
     {
-        public bool Equals(Edge x, Edge y)
+        public bool Equals(Edge<T> x, Edge<T> y)
         {
             return (x.Source == y.Source && x.Destination == y.Destination);
         }
 
-        public int GetHashCode(Edge obj)
+        public int GetHashCode(Edge<T> obj)
         {
             throw new NotImplementedException();
         }
