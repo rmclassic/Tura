@@ -23,6 +23,7 @@ namespace Tura
     /// </summary>
     public partial class TuringMachineEditWindow : Window
     {
+        TuringMachineTapeControl TapeControl;
         TuringMachine ContainingMachine;
         bool ConnectionRequested = false;
         Vertex ConnectionRequestSource;
@@ -30,7 +31,14 @@ namespace Tura
         {
             InitializeComponent();
             ContainingMachine = containingmachine;
+            
             InvalidateMachineGraph();
+
+            TapeControl = new TuringMachineTapeControl("") { Height = 100 };
+
+            WindowGrid.Children.Add(TapeControl);
+            TapeControl.ScrollToItem(0);
+
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -100,52 +108,72 @@ namespace Tura
             ConnectionRequestSource = e;
         }
 
-        private void StartMachineButton_Click(object sender, RoutedEventArgs e)
+        private async void StartMachineButton_Click(object sender, RoutedEventArgs e)
         {
-            //if (InputTextBox.Text == "")
-            //{
-            //    MessageBox.Show("No input is given to the machine.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    return;
-            //}
+            string input = InputTextBox.Text;
+            int cursor = 0;
+            if (InputTextBox.Text == "")
+            {
+                MessageBox.Show("No input is given to the machine.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            
+            TuringMachineBroker broker = new TuringMachineBroker(ContainingMachine);
+            try
+            {
+                broker.InitializeMachine();
+            }
+            catch (Exception ex)
+            {
 
-            //Queue<char> Conditionqueue = new Queue<char>();
-            //DFAMachineBroker broker = new DFAMachineBroker(ContainingMachine);
-            //try
-            //{
-            //    broker.InitializeMachine();
-            //}
-            //catch (Exception ex)
-            //{
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
+            TuringBrokerStepResult stepresult = new TuringBrokerStepResult(null, '\0', Transition.Right);
 
-            //    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            //    return;
-            //}
-            //Vertex TempVertex = null;
-            //foreach (char c in InputTextBox.Text)
-            //{
-            //    try
-            //    {
-            //        TempVertex = broker.Step(c, TempVertex);
-            //        if (TempVertex == null)
-            //        {
-            //            SetNotificationText("Cursor stopped on condition " + c);
-            //            return;
-            //        }
+            do
+            {
+                try
+                {
+                    await TapeControl.ScrollToItem(cursor);
+                    stepresult = broker.Step(input[cursor], stepresult.Destination);
+                    if (stepresult == null)
+                    {
+                        return;
+                    }
 
-            //        SetNotificationText("Cursor Went to " + TempVertex.Name);
+                    await Task.Delay(1000);
 
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        SetNotificationText("Error: " + ex.Message);
-            //        return;
-            //    }
-            //}
-            //if (!TempVertex.IsFinishState)
-            //    SetNotificationText("INPUT NOT ACCEPTED");
+                    input = input.Remove(cursor, 1);
+                    input = input.Insert(cursor, stepresult.ReplaceBy.ToString());
+                    TapeControl.ChangeInput(input);
+
+                    if (stepresult.To == Transition.Right)
+                        cursor++;
+                    else
+                        cursor--;
+
+
+
+
+                }
+                catch (Exception ex)
+                {
+                    //SetNotificationText("Error: " + ex.Message);
+                    return;
+                }
+            } while (stepresult.Destination != null);
+            //if (!stepresult.Destination.IsFinishState)
+
+            //    //SetNotificationText("INPUT NOT ACCEPTED");
 
             //else
-            //    SetNotificationText("INPUT ACCEPTED");
+            //   // SetNotificationText("INPUT ACCEPTED");
+        }
+
+        private void InputTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TapeControl.ChangeInput(InputTextBox.Text);
         }
     }
 }

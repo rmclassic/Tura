@@ -20,7 +20,7 @@ namespace Tura.Controls
     /// </summary>
     public partial class TuringConditionItemControl : UserControl
     {
-        TuringCondition ContainingCondition;
+        public TuringCondition ContainingCondition;
         public TuringConditionItemControl(TuringCondition condition)
         {
             InitializeComponent();
@@ -46,6 +46,8 @@ namespace Tura.Controls
         {
             if (ConditionTextBox.Text != "")
                 ContainingCondition.Condition = ConditionTextBox.Text[0];
+            else
+                ContainingCondition.Condition = '\0';
         }
 
         private void TransitionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

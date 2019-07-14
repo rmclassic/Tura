@@ -20,6 +20,7 @@ namespace Tura.Models
             Vertex Start = new Vertex("S", new Point(0, 0));
             Vertex Finish = new Vertex("F", new Point(20, 20));
             Finish.IsFinishState = true;
+            Start.IsStartState = true;
             Vertices.Add(Start);
             Vertices.Add(Finish);
         }

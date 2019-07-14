@@ -70,7 +70,7 @@ namespace Tura.Controls
             Arrow.Points.Add(new Point(CenterPoint.X - Offx, CenterPoint.Y - Offy));
 
             ConditionTextBlock.Margin = new Thickness(CenterPoint.X, CenterPoint.Y, 0, 0);
-            ConditionTextBlock.Text = ContainingEdge.GetConditions.ToString();
+            ConditionTextBlock.Text = ContainingEdge.GetConditionsAsString;
             
         }
 

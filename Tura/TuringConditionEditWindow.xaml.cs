@@ -43,7 +43,12 @@ namespace Tura
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            
+            ContainingCondition.Clear();
+            foreach (TuringConditionItemControl c in ConditionItemsPanel.Children)
+            {
+                if (c.ContainingCondition.Condition != '\0')
+                    ContainingCondition.Add(c.ContainingCondition);
+            }
         }
     }
 }

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Tura.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="20" d:DesignWidth="200">
+             d:DesignHeight="20" d:DesignWidth="200" Padding="0,0,0,10">
     <Grid Background="White">
         <TextBox MaxLength="1" Name="ConditionTextBox" Margin="0,0,132,0" TextChanged="ConditionTextBox_TextChanged"/>
         <TextBox MaxLength="1" Name="ReplacingConditionTextBox" Margin="67,0,58,0" TextChanged="ReplacingConditionTextBox_TextChanged"/>
