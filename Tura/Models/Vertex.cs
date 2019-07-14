@@ -8,9 +8,11 @@ namespace Tura.Models
 {
     public class Vertex
     {
+        public event EventHandler InvokeActivation; //IMPLEMENT THIS
         public event EventHandler VertexMoved;
         public Vertex(string name, Point location)
         {
+            
             Rename(name);
             Location = location;
             isstartstate = false;

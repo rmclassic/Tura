@@ -37,7 +37,7 @@ namespace Tura
             TapeControl = new TuringMachineTapeControl("") { Height = 100 };
 
             WindowGrid.Children.Add(TapeControl);
-            TapeControl.ScrollToItem(0);
+            TapeControl.ScrollToItem(0, true);
 
         }
 
@@ -110,14 +110,18 @@ namespace Tura
 
         private async void StartMachineButton_Click(object sender, RoutedEventArgs e)
         {
-            string input = InputTextBox.Text;
+            RunMachineStep(InputTextBox.Text);
+        }
+
+        async void RunMachineStep(string input)
+        {
             int cursor = 0;
             if (InputTextBox.Text == "")
             {
                 MessageBox.Show("No input is given to the machine.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            
+
             TuringMachineBroker broker = new TuringMachineBroker(ContainingMachine);
             try
             {
@@ -135,24 +139,35 @@ namespace Tura
             {
                 try
                 {
-                    await TapeControl.ScrollToItem(cursor);
+                    await TapeControl.ScrollToItem(cursor, true);
                     stepresult = broker.Step(input[cursor], stepresult.Destination);
                     if (stepresult == null)
                     {
                         return;
                     }
-
-                    await Task.Delay(1000);
+                    await Task.Delay(500);
 
                     input = input.Remove(cursor, 1);
                     input = input.Insert(cursor, stepresult.ReplaceBy.ToString());
+
                     TapeControl.ChangeInput(input);
 
                     if (stepresult.To == Transition.Right)
+                    {
                         cursor++;
+                        if (cursor >= input.Length)
+                            input = input + "#";
+                    }
                     else
+                    {
                         cursor--;
-
+                        if (cursor < 0)
+                        {
+                            input = "#" + input;
+                            cursor = 0;
+                            await TapeControl.ScrollToItem(1, false);
+                        }
+                    }
 
 
 
@@ -163,17 +178,24 @@ namespace Tura
                     return;
                 }
             } while (stepresult.Destination != null);
-            //if (!stepresult.Destination.IsFinishState)
 
-            //    //SetNotificationText("INPUT NOT ACCEPTED");
-
-            //else
-            //   // SetNotificationText("INPUT ACCEPTED");
+            TapeControl.ChangeInput(input);
         }
 
         private void InputTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TapeControl.ChangeInput(InputTextBox.Text);
+        }
+
+        private void QuickRunButton_Click(object sender, RoutedEventArgs e)
+        {
+            TuringMachineBroker broker = new TuringMachineBroker(ContainingMachine);
+            MessageBox.Show(broker.Run(InputTextBox.Text));
+        }
+
+        private void MultiInputRunButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

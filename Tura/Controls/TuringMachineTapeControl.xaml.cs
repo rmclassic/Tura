@@ -21,27 +21,34 @@ namespace Tura.Controls
     /// </summary>
     public partial class TuringMachineTapeControl : UserControl
     {
+        int CellsOffset;
         string InputString;
         public TuringMachineTapeControl(string input)
         {
-            
             InitializeComponent();
+            
             InputString = input;
-            DrawCells();
+            DrawCells(CellsOffset);
         }
 
+        protected override void OnRender(DrawingContext drawingContext)
+        {
+            double CellWidth = (this.ActualHeight - 41);
+            CellsOffset = (int)(this.ActualWidth / CellWidth / 2) + 1;
+        }
         public void ChangeInput(string input)
         {
+            
             InputString = input;
-            DrawCells();
+            DrawCells(CellsOffset);
         }
 
-        void DrawCells()
+        void DrawCells(int offset)
         {
             double CellWidth = (this.ActualHeight - 41);
             CellsPanel.Children.Clear();
 
-            for (int i = 0; i < this.ActualWidth / CellWidth / 2; i++)
+            for (int i = 0; i < offset; i++)
                 CellsPanel.Children.Add(new TuringTapeCellControl('#') { Height = CellWidth, Width = CellWidth });
 
             foreach (char c in InputString)
@@ -50,33 +57,46 @@ namespace Tura.Controls
                 
             }
 
-            for (int i = 0; i < this.ActualWidth / CellWidth / 2; i++)
+            for (int i = 0; i < offset; i++)
                 CellsPanel.Children.Add(new TuringTapeCellControl('#') { Height = CellWidth, Width = CellWidth });
         }
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            DrawCells();
+            DrawCells(CellsOffset);
         }
 
-        public async Task ScrollToItem(int index)
+        public async Task ScrollToItem(int index, bool animate)
         {
-            double CellWidth = (this.ActualHeight - 42);
+            double CellWidth = (this.ActualHeight - 43);
 
-            if (CellsScrolViewer.HorizontalOffset < index * CellWidth)
+
+            if (CellsScrolViewer.ScrollableWidth < index * CellWidth)
             {
-                for (double i = CellsScrolViewer.HorizontalOffset; i < index * CellWidth; i += 5)
+                CellsOffset++;
+                DrawCells(CellsOffset);
+            }
+
+            if (!animate)
+            {
+                CellsScrolViewer.ScrollToHorizontalOffset(index * CellWidth + CellWidth / 2 + 10);
+                return;
+            }
+
+            if (CellsScrolViewer.HorizontalOffset < index * CellWidth + CellWidth / 2)
+            {
+                for (double i = CellsScrolViewer.HorizontalOffset; i <= index * CellWidth + CellWidth / 2 + 10; i+=5)
                 {
-                    CellsScrolViewer.ScrollToHorizontalOffset(i + CellWidth / 2);
-                    await Task.Delay(10);
+                    CellsScrolViewer.ScrollToHorizontalOffset(i);
+                    await Task.Delay(15);
                 }
             }
             else
             {
-                for (double i = CellsScrolViewer.HorizontalOffset; i > index * CellWidth; i -= 5)
+                for (double i = CellsScrolViewer.HorizontalOffset; i >= index * CellWidth + CellWidth / 2 + 10; i -= 5)
                 {
-                    CellsScrolViewer.ScrollToHorizontalOffset(i + CellWidth / 2);
-                    await Task.Delay(10);
+                    CellsScrolViewer.ScrollToHorizontalOffset(i);
+                    await Task.Delay(5);
                 }
             }
         }

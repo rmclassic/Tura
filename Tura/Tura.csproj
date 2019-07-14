@@ -79,6 +79,9 @@
     <Compile Include="Models\DFAMachine.cs" />
     <Compile Include="Models\TuringBrokerStepResult.cs" />
     <Compile Include="Models\TuringCondition.cs" />
+    <Compile Include="MultiInputWindow.xaml.cs">
+      <DependentUpon>MultiInputWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TuringConditionEditWindow.xaml.cs">
       <DependentUpon>TuringConditionEditWindow.xaml</DependentUpon>
     </Compile>
@@ -153,6 +156,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MultiInputWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TuringConditionEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

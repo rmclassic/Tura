@@ -55,6 +55,59 @@ namespace Tura.Util
             return null;
         }
 
+
+        public string Run(string input)
+        {
+
+            int cursor = 0;
+
+            TuringMachineBroker broker = new TuringMachineBroker(ContainingMachine);
+
+            TuringBrokerStepResult stepresult = new TuringBrokerStepResult(null, '\0', Transition.Right);
+
+            do
+            {
+                try
+                {
+                    stepresult = broker.Step(input[cursor], stepresult.Destination);
+                    if (stepresult == null)
+                    {
+                        return input;
+                    }
+
+                    input = input.Remove(cursor, 1);
+                    input = input.Insert(cursor, stepresult.ReplaceBy.ToString());
+
+                    if (stepresult.To == Transition.Right)
+                    {
+                        cursor++;
+                        if (cursor >= input.Length)
+                            input = input + "#";
+                    }
+                    else
+                    {
+                        cursor--;
+                        if (cursor < 0)
+                        {
+                            input = "#" + input;
+                            cursor = 0;
+                        }
+                    }
+
+
+
+                }
+                catch (Exception ex)
+                {
+                    //SetNotificationText("Error: " + ex.Message);
+                    return "ERROR";
+                }
+            } while (stepresult.Destination != null);
+
+            input = input.TrimEnd('#');
+            return input;
+        }
+
         TuringBrokerStepResult ConditionCheckOutput(Edge<TuringCondition> e, char val)
         {
             foreach (TuringCondition c in e.GetConditions)
