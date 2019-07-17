@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tura.Util;
 namespace Tura.Models
 {
     public class Vertex
     {
-        public event EventHandler InvokeActivation; //IMPLEMENT THIS
+        public event EventHandler Activated; //IMPLEMENT THIS
         public event EventHandler VertexMoved;
         public Vertex(string name, Point location)
         {
@@ -17,6 +18,13 @@ namespace Tura.Models
             Location = location;
             isstartstate = false;
             isfinishstate = false;
+
+            id = Rand.GetNext();
+        }
+
+        public void InvokeActivation()
+        {
+            Activated.Invoke(this, null);
         }
 
         public void Rename(string name)
@@ -27,7 +35,9 @@ namespace Tura.Models
         public bool IsStartState { set { if (isfinishstate) isfinishstate = !isfinishstate; isstartstate = value; } get { return isstartstate; } }
         bool isstartstate;
         bool isfinishstate;
+        int id;
 
+        public int ID { get { return id; } set { id = value; } }
         public string Name;
         Point location;
         public Point Location { set { location = value; if (VertexMoved != null) VertexMoved.Invoke(this, null); } get { return location; } }

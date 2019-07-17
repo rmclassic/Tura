@@ -138,7 +138,6 @@ namespace Tura
                 return;
             }
 
-            Queue<char> Conditionqueue = new Queue<char>();
             DFAMachineBroker broker = new DFAMachineBroker(ContainingMachine);
             try
             {
@@ -162,7 +161,6 @@ namespace Tura
                     }
 
                     SetNotificationText("Cursor Went to " + TempVertex.Name);
-
                 }
                 catch (Exception ex)
                 {

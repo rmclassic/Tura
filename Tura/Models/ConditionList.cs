@@ -14,6 +14,7 @@ namespace Tura.Models
 
             foreach (char c in this)
             {
+                if (c != '\0')
                 St += c + ", ";
             }
 

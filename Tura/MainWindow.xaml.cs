@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+using System.Windows.Documents; 
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tura.Models;
 using Tura.Controls;
+using Tura.Util;
+using System.IO;
+using System.Windows.Forms;
 
 namespace Tura
 {
@@ -23,42 +24,119 @@ namespace Tura
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<TuringMachine> TuringMachines = new List<TuringMachine>();
-        private List<DFAMachine> DFAMachines = new List<DFAMachine>();
+        Project ContainingProject;
+        bool isprojectloaded;
+
+        public bool IsProjectLoaded { set { isprojectloaded = value; MainPanel.Visibility = (value == true) ? Visibility.Visible : Visibility.Collapsed; MachineMenu.IsEnabled = value; CloseProjectMenuItem.IsEnabled = SaveAsMenuItem.IsEnabled = SaveProjectMenuItem.IsEnabled = value; } get { return isprojectloaded; } }
 
         public MainWindow()
         {
             InitializeComponent();
-            DFAMachines.Add(new DFAMachine("New DFA Machine"));
+            IsProjectLoaded = false;
+            if (IsProjectLoaded)
             InvalidateMachinesGrid();
         }
 
         public void InvalidateMachinesGrid()
         {
             MachinesGrid.Children.Clear();
-            foreach (DFAMachine machine in DFAMachines)
+            foreach (DFAMachine machine in ContainingProject.DFAMachines)
             {
-           
-                MachinesGrid.Children.Add(new MachineControl(machine));
+                MachineControl mc = new MachineControl(machine);
+                mc.DeleteRequested += Mc_DeleteRequested;
+                MachinesGrid.Children.Add(mc);
             }
 
-            foreach (TuringMachine machine in TuringMachines)
+            foreach (TuringMachine machine in ContainingProject.TuringMachines)
             {
-
-                MachinesGrid.Children.Add(new TuringMachineControl(machine));
+                TuringMachineControl tmc = new TuringMachineControl(machine);
+                tmc.DeleteRequested += Tmc_DeleteRequested; ;
+                MachinesGrid.Children.Add(tmc);
             }
+        }
+
+        private void Tmc_DeleteRequested(object sender, EventArgs e)
+        {
+            TuringMachineControl machine = sender as TuringMachineControl;
+            ContainingProject.TuringMachines.Remove(machine.ContainingMachine);
+            InvalidateMachinesGrid();
+        }
+
+        private void Mc_DeleteRequested(object sender, EventArgs e)
+        {
+            MachineControl machine = sender as MachineControl;
+            ContainingProject.DFAMachines.Remove(machine.ContainingMachine);
+            InvalidateMachinesGrid();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MenuItem item = sender as MenuItem;
+            System.Windows.Controls.MenuItem item = sender as System.Windows.Controls.MenuItem;
 
             if (item.Header.ToString() == "DFA Machine")
-                DFAMachines.Add(new DFAMachine("New DFA Machine"));
+                ContainingProject.DFAMachines.Add(new DFAMachine("New DFA Machine"));
             else if (item.Header.ToString() == "Turing Machine")
-                TuringMachines.Add(new TuringMachine("New Turing Machine"));
+                ContainingProject.TuringMachines.Add(new TuringMachine("New Turing Machine"));
 
             InvalidateMachinesGrid();
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.DefaultExt = "TPF";
+            dlg.Filter = "Turing project file | *.TPF";
+            try
+            {
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                ContainingProject = FileDAL.LoadProject(dlg.FileName);
+
+            InvalidateMachinesGrid();
+            IsProjectLoaded = true;
+            }
+            catch
+            {
+                System.Windows.MessageBox.Show("There was a problem loading the project. project file may be corrupted", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.MenuItem item = sender as System.Windows.Controls.MenuItem;
+            if (ContainingProject.FileDir == null | item.Header.ToString() == "Save _As")
+            {
+                SaveFileDialog dlg = new SaveFileDialog();
+                dlg.DefaultExt = "TPF";
+                dlg.Filter = "Turing project file | *.TPF";
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    ContainingProject.FileDir = dlg.FileName;
+
+            }
+
+            else
+            {
+                try
+                {
+                    FileDAL.SaveProject(ContainingProject);
+                }
+                catch
+                {
+                    System.Windows.MessageBox.Show("There was a problem saving the project, try using another directory.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            ContainingProject = new Project();
+            IsProjectLoaded = true;
+        }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            IsProjectLoaded = false;
         }
     }
 }

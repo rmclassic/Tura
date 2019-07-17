@@ -30,7 +30,33 @@ namespace Tura.Controls
         {
             InitializeComponent();
             ContainingVertex = containingvertex;
+            ContainingVertex.Activated += ContainingVertex_InvokeActivation;
             InitializeVertexControl();
+        }
+
+        private void ContainingVertex_InvokeActivation(object sender, EventArgs e)
+        {
+            ActivateControl();
+        }
+
+        public async void ActivateControl()
+        {
+            for (int i = 210; i > 0; i-=20)
+            {
+                MainEllipse.Dispatcher.Invoke(() =>
+                {
+                    MainEllipse.Fill = new SolidColorBrush(Color.FromRgb((byte)i, (byte)i, (byte)i));
+                });
+                await Task.Delay(1);
+            }
+            for (int i = 0; i < 210; i+=20)
+            {
+                MainEllipse.Dispatcher.Invoke(() =>
+                {
+                    MainEllipse.Fill = new SolidColorBrush(Color.FromRgb((byte)i, (byte)i, (byte)i));
+                });
+                await Task.Delay(1);
+            }
         }
 
         void InitializeVertexControl()

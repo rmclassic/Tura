@@ -21,6 +21,7 @@ namespace Tura
     /// </summary>
     public partial class MachineControl : UserControl
     {
+        public event EventHandler DeleteRequested;
         public DFAMachine ContainingMachine;
         bool Dragging = false;
         Point MouseLastPosition;
@@ -64,10 +65,36 @@ namespace Tura
 
         private void MachineControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
             new MachineEditWindow(ContainingMachine).ShowDialog();
             Dragging = false;
             e.Handled = true;
+        }
+
+        private void MachineNameTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            MachineNameTextBox.Visibility = Visibility.Collapsed;
+            MachineName.Text = ContainingMachine.Name;
+        }
+
+        private void MachineNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ContainingMachine.Name = MachineNameTextBox.Text;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MachineNameTextBox.Visibility = Visibility.Visible;
+            MachineNameTextBox.Focus();
+            MachineNameTextBox.Text = ContainingMachine.Name;
+            e.Handled = true;
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (DeleteRequested != null)
+            {
+                DeleteRequested.Invoke(this, null);
+            }
         }
     }
 }

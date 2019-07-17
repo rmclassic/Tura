@@ -7,8 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="200" Width="200" Height="200">
     <Grid Background="LightGray">
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Rename Machine" Click="MenuItem_Click"/>
+                <MenuItem Header="Delete Machine" Click="MenuItem_Click_1"/>
+            </ContextMenu>
+        </Grid.ContextMenu>
         <Rectangle Stroke="Black" StrokeThickness="2"/>
-        
-        <TextBlock Name="MachineName" Text="New Turing Machine" FontSize="12" FontWeight="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Name="MachineName" Text="New Turing Machine" FontSize="12" FontWeight="Black" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextAlignment="Center"/>
+        <TextBox Name="MachineNameTextBox" VerticalAlignment="Center" HorizontalAlignment="Stretch" LostFocus="MachineNameTextBox_LostFocus" Visibility="Collapsed" TextChanged="MachineNameTextBox_TextChanged"/>
     </Grid>
 </UserControl>

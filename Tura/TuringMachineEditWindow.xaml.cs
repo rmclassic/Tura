@@ -116,12 +116,6 @@ namespace Tura
         async void RunMachineStep(string input)
         {
             int cursor = 0;
-            if (InputTextBox.Text == "")
-            {
-                MessageBox.Show("No input is given to the machine.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
             TuringMachineBroker broker = new TuringMachineBroker(ContainingMachine);
             try
             {
@@ -169,9 +163,11 @@ namespace Tura
                         }
                     }
 
-
+                    stepresult.Destination.InvokeActivation();
 
                 }
+                
+
                 catch (Exception ex)
                 {
                     //SetNotificationText("Error: " + ex.Message);

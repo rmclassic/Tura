@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -75,8 +78,12 @@
     <Compile Include="DFAConditionEditWindow.xaml.cs">
       <DependentUpon>DFAConditionEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Intro.xaml.cs">
+      <DependentUpon>Intro.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\ConditionList.cs" />
     <Compile Include="Models\DFAMachine.cs" />
+    <Compile Include="Models\Project.cs" />
     <Compile Include="Models\TuringBrokerStepResult.cs" />
     <Compile Include="Models\TuringCondition.cs" />
     <Compile Include="MultiInputWindow.xaml.cs">
@@ -91,6 +98,8 @@
     <Compile Include="Util\DFAMachineBroker.cs" />
     <Compile Include="Util\DFAMachineDebugger.cs" />
     <Compile Include="Util\EdgeComparer.cs" />
+    <Compile Include="Util\FileDAL.cs" />
+    <Compile Include="Util\Rand.cs" />
     <Compile Include="Util\TuringMachineBroker.cs" />
     <Page Include="Controls\EdgeControl.xaml">
       <SubType>Designer</SubType>
@@ -125,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DFAConditionEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Intro.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -191,6 +204,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

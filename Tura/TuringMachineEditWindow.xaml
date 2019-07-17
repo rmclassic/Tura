@@ -15,7 +15,9 @@
         </Grid.ContextMenu>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Open Machine"/>
+                <MenuItem Header="_Open Project"/>
+                <MenuItem Header="_Save Project"/>
+                <MenuItem Header="Save Project _As"/>
                 <MenuItem Header="_Close"/>
 
             </MenuItem>
