@@ -28,7 +28,6 @@ namespace Tura
         bool isprojectloaded;
 
         public bool IsProjectLoaded { set { isprojectloaded = value; MainPanel.Visibility = (value == true) ? Visibility.Visible : Visibility.Collapsed; MachineMenu.IsEnabled = value; CloseProjectMenuItem.IsEnabled = SaveAsMenuItem.IsEnabled = SaveProjectMenuItem.IsEnabled = value; } get { return isprojectloaded; } }
-
         public MainWindow()
         {
             InitializeComponent();
