@@ -7,14 +7,15 @@ using System.Windows;
 
 namespace Tura.Models
 {
-    public abstract class Machine<T>
+    public abstract class Machine
     {
         public string Name;
         public Point Location;
         public List<Vertex> Vertices;
-        public List<Edge<T>> Edges;
+        //public List<Edge<T>> Edges;
         public MachineClass Class;
         public abstract void RemoveVertex(Vertex V);
+        public abstract string Run(string input);
     }
 
     public enum MachineClass { DFA, Turing }

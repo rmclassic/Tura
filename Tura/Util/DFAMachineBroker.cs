@@ -27,6 +27,30 @@ namespace Tura.Util
             Initialized = true;
         }
 
+        public string Run(string input)
+        {
+            Vertex TempVertex = null;
+            foreach (char c in input)
+            {
+                try
+                {
+                    TempVertex = Step(c, TempVertex);
+                    if (TempVertex == null)
+                    {
+                        return "";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return "";
+                }
+            }
+            if (TempVertex.IsFinishState)
+                return TempVertex.Name;
+            else
+                return "";
+        }
+
         public Vertex GetStartState()
         {
             foreach (Vertex v in ContainingMachine.Vertices)

@@ -19,7 +19,6 @@
                 </ContextMenu>
             </Ellipse.ContextMenu>
 
-
         </Ellipse>
 
         
@@ -48,8 +47,6 @@
                     <MenuItem Header="Change Finish State" Click="MenuItem_Click_2"/>
                 </ContextMenu>
             </Ellipse.ContextMenu>
-
-
         </Ellipse>
 
         <TextBlock Name="NameTextBlock" Text="V" VerticalAlignment="Center" Foreground="White" TextAlignment="Center" HorizontalAlignment="Center" FontSize="12" Width="100" MouseDown="NameTextBlock_MouseDown"/>

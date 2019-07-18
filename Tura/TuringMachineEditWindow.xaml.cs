@@ -143,6 +143,7 @@ namespace Tura
 
                     input = input.Remove(cursor, 1);
                     input = input.Insert(cursor, stepresult.ReplaceBy.ToString());
+                    input = stepresult.Destination.RunVertex(input);
 
                     TapeControl.ChangeInput(input);
 
@@ -192,6 +193,83 @@ namespace Tura
         private void MultiInputRunButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog();
+            dlg.DefaultExt = "tmf";
+            dlg.Filter = "Turing machine file | *.tmf";
+            try
+            {
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    ContainingMachine = FileDAL.LoadTuringMachine(dlg.FileName);
+
+                InvalidateMachineGraph();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show("There was a problem loading the machine. machine file may be corrupted.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.MenuItem item = sender as System.Windows.Controls.MenuItem;
+
+                System.Windows.Forms.SaveFileDialog dlg = new System.Windows.Forms.SaveFileDialog();
+                dlg.DefaultExt = "tmf";
+                dlg.Filter = "Turing machine file | *.tmf";
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    FileDAL.SaveTuringMachine(ContainingMachine, dlg.FileName);
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            DFAMachine ImportedMachine;
+            System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog();
+            dlg.DefaultExt = "dmf";
+            dlg.Filter = "DFA machine file | *.dmf";
+            try
+            {
+                if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                    return;
+
+                   ImportedMachine  = FileDAL.LoadDFAMachine(dlg.FileName);
+
+                Vertex MachineVertex = new Vertex(ImportedMachine.Name, new Point(20, 20));
+                MachineVertex.ContainingMachine = ImportedMachine;
+                ContainingMachine.Vertices.Add(MachineVertex);
+                InvalidateMachineGraph();
+            }
+            catch
+            {
+                System.Windows.MessageBox.Show("There was a problem loading the machine. machine file may be corrupted.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            TuringMachine ImportedMachine;
+            System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog();
+            dlg.DefaultExt = "tmf";
+            dlg.Filter = "Turing machine file | *.tmf";
+            try
+            {
+                if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                    return;
+
+                ImportedMachine = FileDAL.LoadTuringMachine(dlg.FileName);
+
+                Vertex MachineVertex = new Vertex(ImportedMachine.Name, new Point(20, 20));
+                MachineVertex.ContainingMachine = ImportedMachine;
+                ContainingMachine.Vertices.Add(MachineVertex);
+                InvalidateMachineGraph();
+            }
+            catch
+            {
+                System.Windows.MessageBox.Show("There was a problem loading the machine. machine file may be corrupted.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

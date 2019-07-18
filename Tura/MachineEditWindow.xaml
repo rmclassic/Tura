@@ -16,6 +16,12 @@
             <MenuItem Header="_File">
                 <MenuItem Header="_Open Machine"/>
                 <MenuItem Header="_Close"/>
+                <MenuItem Header="_Open Machine" Click="MenuItem_Click_1"/>
+                <MenuItem Header="_Save Machine" Click="MenuItem_Click_2"/>
+                <MenuItem Header="_Import" >
+                    <MenuItem Header="DFA Machine" Click="MenuItem_Click_3"/>
+                    <MenuItem Header="Turing Machine" Click="MenuItem_Click_4"/>
+                </MenuItem>
 
             </MenuItem>
 
@@ -31,6 +37,7 @@
         </Menu>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,20,0,20">
             <Grid Name="GraphGrid" Background="White"/>
+            
         </ScrollViewer>
         <TextBox Background="Transparent" Foreground="Black" Name="NotifText" VerticalAlignment="Bottom" Margin="0,0,0,20" FontSize="36" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" IsEnabled="False">
             Notifications

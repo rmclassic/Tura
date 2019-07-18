@@ -174,5 +174,44 @@ namespace Tura
             else
                 SetNotificationText("INPUT ACCEPTED");
         }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog();
+            dlg.DefaultExt = "dmf";
+            dlg.Filter = "DFA machine file | *.dmf";
+            try
+            {
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    ContainingMachine = FileDAL.LoadDFAMachine(dlg.FileName);
+
+                InvalidateMachineGraph();
+            }
+            catch
+            {
+                System.Windows.MessageBox.Show("There was a problem loading the machine. machine file may be corrupted.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.MenuItem item = sender as System.Windows.Controls.MenuItem;
+
+            System.Windows.Forms.SaveFileDialog dlg = new System.Windows.Forms.SaveFileDialog();
+            dlg.DefaultExt = "dmf";
+            dlg.Filter = "DFA machine file | *.dmf";
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                FileDAL.SaveDFAMachine(ContainingMachine, dlg.FileName);
+        }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -4,10 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Tura.Util;
+
 namespace Tura.Models
 {
-    public class DFAMachine : Machine<char>
+    public class DFAMachine : Machine
     {
+        public int foo = 15;
+        public List<Edge<char>> Edges;
+
+        public DFAMachine()
+        {
+            Class = MachineClass.DFA;
+            Vertices = new List<Vertex>();
+            Edges = new List<Edge<char>>();
+            Location = new Point(20, 20);
+        }
+
         public DFAMachine(string name)
         {
             Name = name;
@@ -21,6 +34,15 @@ namespace Tura.Models
             Finish.IsFinishState = true;
             Vertices.Add(Start);
             Vertices.Add(Finish);
+        }
+
+     
+
+        public override string Run(string input)
+        {
+            DFAMachineBroker broker = new DFAMachineBroker(this);
+            broker.InitializeMachine();
+            return broker.Run(input);
         }
 
         public override void RemoveVertex(Vertex V)
@@ -50,7 +72,5 @@ namespace Tura.Models
                 }
             }
         }
-
-
     }
 }

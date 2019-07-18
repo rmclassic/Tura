@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Tura
 {
-    
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>

@@ -36,6 +36,76 @@ namespace Tura.Util
             return p;
         }
 
+
+
+        public static TuringMachine LoadTuringMachine(string dir)
+        {
+            string content = File.ReadAllText(dir);
+            var jset = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
+            TuringMachine machine = JsonConvert.DeserializeObject<TuringMachine>(content, jset);
+
+                foreach (Edge<TuringCondition> edge in machine.Edges)
+                    edge.GetConditions.RemoveAt(0);
+
+            ReconstructRefs(machine);
+            return machine;
+        }
+
+        public static void SaveDFAMachine(DFAMachine machine, string dir)
+        {
+            JsonSerializer json = new JsonSerializer();
+            string machinestr = JsonConvert.SerializeObject(machine);
+            File.WriteAllText(dir, machinestr);
+        }
+
+        public static void SaveTuringMachine(TuringMachine machine, string dir)
+        {
+            var jset = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
+            JsonSerializer json = new JsonSerializer();
+            string machinestr = JsonConvert.SerializeObject(machine,jset);
+            File.WriteAllText(dir, machinestr);
+        }
+
+        public static DFAMachine LoadDFAMachine(string dir)
+        {
+            string content = File.ReadAllText(dir);
+            DFAMachine machine = JsonConvert.DeserializeObject<DFAMachine>(content);
+
+            foreach (Edge<char> edge in machine.Edges)
+                edge.GetConditions.RemoveAt(0);
+
+            ReconstructRefs(machine);
+            return machine;
+        }
+
+        static void ReconstructRefs(TuringMachine machine)
+        {
+            foreach (Edge<TuringCondition> edge in machine.Edges)
+            {
+                foreach (Vertex vertex in machine.Vertices)
+                {
+                    if (vertex.ID == edge.Source.ID)
+                        edge.Source = vertex;
+                    if (vertex.ID == edge.Destination.ID)
+                        edge.Destination = vertex;
+                }
+            }
+        }
+
+        static void ReconstructRefs(DFAMachine machine)
+        {
+            foreach (Edge<char> edge in machine.Edges)
+            {
+                foreach (Vertex vertex in machine.Vertices)
+                {
+                    if (vertex.ID == edge.Source.ID)
+                        edge.Source = vertex;
+                    if (vertex.ID == edge.Destination.ID)
+                        edge.Destination = vertex;
+                }
+            }
+        }
+
         static void ReconstructRefs(Project p)
         {
             foreach (DFAMachine machine in p.DFAMachines)

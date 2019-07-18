@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tura"
         mc:Ignorable="d"
-        Title="Intro" Height="400" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="Intro" Height="300" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Grid>
         <Rectangle Stroke="Gray" StrokeThickness="1">
             <Rectangle.Fill>
@@ -18,7 +18,7 @@
                 <EventTrigger RoutedEvent="Loaded">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetName="LightGradient" Storyboard.TargetProperty="Offset" From="4" To="2" Duration="0:0:2"/>
+                            <DoubleAnimation Storyboard.TargetName="LightGradient" Storyboard.TargetProperty="Offset" From="2" To="5" Duration="0:0:2"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
@@ -26,12 +26,12 @@
             
         </Rectangle>
 
-        <Line x:Name="TitleLine" X1="0" X2="600" Y1="105" Y2="105" Stroke="Black" StrokeThickness="2" HorizontalAlignment="Left">
+        <Line x:Name="TitleLine" X1="0" X2="600" Y1="105" Y2="105" Stroke="Black" StrokeThickness="1" HorizontalAlignment="Left">
             <Line.Triggers>
                 <EventTrigger RoutedEvent="Loaded">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetName="TitleLine" Storyboard.TargetProperty="Width" From="0" To="600" Duration="0:0:2"/>
+                            <DoubleAnimation Storyboard.TargetName="TitleLine" Storyboard.TargetProperty="Width" From="0" To="600" Duration="0:0:1.7"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>

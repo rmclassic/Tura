@@ -34,6 +34,10 @@ namespace Tura
             IsProjectLoaded = false;
             if (IsProjectLoaded)
             InvalidateMachinesGrid();
+
+            TuringMachine d = new TuringMachine("DAS");
+            Machine q = d;
+            System.Windows.MessageBox.Show(q.GetType().ToString());
         }
 
         public void InvalidateMachinesGrid()
@@ -94,7 +98,7 @@ namespace Tura
             InvalidateMachinesGrid();
             IsProjectLoaded = true;
             }
-            catch
+            catch (Exception ex)
             {
                 System.Windows.MessageBox.Show("There was a problem loading the project. project file may be corrupted", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
