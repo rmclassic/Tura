@@ -7,11 +7,12 @@
         mc:Ignorable="d"
         Title="MultiInputWindow" Height="350" Width="250">
     <Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
-            <StackPanel Name="ConditionsPanel" VerticalAlignment="Top" Margin="0,0,0,20">
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Margin="0,0,0,50">
+            <StackPanel Name="ConditionsPanel" VerticalAlignment="Top">
 
             </StackPanel>
         </ScrollViewer>
         <Button Height="20" Name="AddItemButtonClick" Content="+" VerticalAlignment="Bottom" Click="AddItemButtonClick_Click"/>
+        <Button Height="20" Name="RunButton" Content="Run Tests" Margin="0,0,0,25" VerticalAlignment="Bottom" Click="RunButton_Click"/>
     </Grid>
 </Window>

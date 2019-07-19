@@ -65,7 +65,9 @@ namespace Tura
 
         private void MachineControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new MachineEditWindow(ContainingMachine).ShowDialog();
+            MachineEditWindow editwindow = new MachineEditWindow(ContainingMachine);
+            editwindow.ShowDialog();
+            ContainingMachine = editwindow.ContainingMachine;
             Dragging = false;
             e.Handled = true;
         }

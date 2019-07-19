@@ -60,51 +60,47 @@ namespace Tura.Util
         {
 
             int cursor = 0;
-
-            TuringMachineBroker broker = new TuringMachineBroker(ContainingMachine);
-
+            
             TuringBrokerStepResult stepresult = new TuringBrokerStepResult(null, '\0', Transition.Right);
-
             do
             {
                 try
                 {
-                    stepresult = broker.Step(input[cursor], stepresult.Destination);
+                    stepresult = Step(input[cursor], stepresult.Destination);
                     if (stepresult == null)
                     {
-                        return input;
+                        break;
                     }
 
                     input = input.Remove(cursor, 1);
                     input = input.Insert(cursor, stepresult.ReplaceBy.ToString());
+                    input = stepresult.Destination.RunVertex(input);
 
                     if (stepresult.To == Transition.Right)
                     {
                         cursor++;
                         if (cursor >= input.Length)
-                            input = input + "#";
+                            input += "#";
                     }
-                    else
+                    else if (stepresult.To == Transition.Left)
                     {
                         cursor--;
                         if (cursor < 0)
                         {
-                            input = "#" + input;
+                            input = '#' + input;
                             cursor = 0;
                         }
                     }
 
-
+                    stepresult.Destination.InvokeActivation();
 
                 }
                 catch (Exception ex)
                 {
-                    //SetNotificationText("Error: " + ex.Message);
-                    return "ERROR";
+                    return "";
                 }
             } while (stepresult.Destination != null);
 
-            input = input.TrimEnd('#');
             return input;
         }
 

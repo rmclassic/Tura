@@ -24,7 +24,7 @@ namespace Tura
     public partial class TuringMachineEditWindow : Window
     {
         TuringMachineTapeControl TapeControl;
-        TuringMachine ContainingMachine;
+        public TuringMachine ContainingMachine;
         bool ConnectionRequested = false;
         Vertex ConnectionRequestSource;
         public TuringMachineEditWindow(TuringMachine containingmachine)
@@ -192,7 +192,7 @@ namespace Tura
 
         private void MultiInputRunButton_Click(object sender, RoutedEventArgs e)
         {
-
+            new MultiInputWindow(ContainingMachine).ShowDialog();
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)

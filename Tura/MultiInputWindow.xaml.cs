@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Tura;
+using Tura.Controls;
+using Tura.Models;
 
 namespace Tura
 {
@@ -21,48 +23,41 @@ namespace Tura
     /// </summary>
     public partial class MultiInputWindow : Window
     {
-        List<string> InputList = new List<string>();
+        public Machine ContainingMachine;
         
-        public MultiInputWindow()
+        public MultiInputWindow(Machine machine)
         {
             InitializeComponent();
+            ContainingMachine = machine;
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            SaveInput();
         }
 
-        public List<string> GetInput()
-        {
-            return InputList;
-        }
 
-        TextBox CreateItemtextBox()
+        MultiInputItem CreateItemtextBox()
         {
-            TextBox t = new TextBox();
+            MultiInputItem t = new MultiInputItem();
             t.Width = Width - 20;
             t.HorizontalAlignment = HorizontalAlignment.Center;
             t.Margin = new Thickness(0, 2, 0, 2);
             return t;
         }
 
-
-        void SaveInput()
-        {
-            InputList.Clear();
-
-            foreach (TextBox t in ConditionsPanel.Children)
-            {
-                if (t.Text != "")
-                    InputList.Add(t.Text);
-            }
-        }
-
         private void AddItemButtonClick_Click(object sender, RoutedEventArgs e)
         {
-            TextBox t = CreateItemtextBox();
+            MultiInputItem t = CreateItemtextBox();
             ConditionsPanel.Children.Add(t);
+        }
+
+        private void RunButton_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (MultiInputItem t in ConditionsPanel.Children)
+            {
+                string input = t.GetInput();
+                t.SetOutput(ContainingMachine.Run(input));
+            }
         }
     }
 

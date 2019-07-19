@@ -24,7 +24,7 @@ namespace Tura
     {
         bool ConnectionRequested = false;
         Vertex ConnectionRequestSource;
-        DFAMachine ContainingMachine;
+        public DFAMachine ContainingMachine;
         ConcurrentQueue<string> NotificationsQueue = new ConcurrentQueue<string>();
         public MachineEditWindow(DFAMachine containingmachine)
         {
