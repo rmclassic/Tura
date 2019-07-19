@@ -206,12 +206,61 @@ namespace Tura
 
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
+            DFAMachine ImportedMachine;
+            System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog();
+            dlg.DefaultExt = "dmf";
+            dlg.Filter = "DFA machine file | *.dmf";
+            try
+            {
+                if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                    return;
 
+                ImportedMachine = FileDAL.LoadDFAMachine(dlg.FileName);
+
+                Vertex MachineVertex = new Vertex(ImportedMachine.Name, new Point(20, 20));
+                MachineVertex.ContainingMachine = ImportedMachine;
+                ContainingMachine.Vertices.Add(MachineVertex);
+                InvalidateMachineGraph();
+            }
+            catch
+            {
+                System.Windows.MessageBox.Show("There was a problem loading the machine. machine file may be corrupted.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void MenuItem_Click_4(object sender, RoutedEventArgs e)
         {
+            TuringMachine ImportedMachine;
+            System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog();
+            dlg.DefaultExt = "tmf";
+            dlg.Filter = "Turing machine file | *.tmf";
+            try
+            {
+                if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                    return;
 
+                ImportedMachine = FileDAL.LoadTuringMachine(dlg.FileName);
+
+                Vertex MachineVertex = new Vertex(ImportedMachine.Name, new Point(20, 20));
+                MachineVertex.ContainingMachine = ImportedMachine;
+                ContainingMachine.Vertices.Add(MachineVertex);
+                InvalidateMachineGraph();
+            }
+            catch
+            {
+                System.Windows.MessageBox.Show("There was a problem loading the machine. machine file may be corrupted.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void QuickRunButton_Click(object sender, RoutedEventArgs e)
+        {
+            SetNotificationText("Result: " + ContainingMachine.Run(InputTextBox.Text));
+        }
+
+        private void MultiInputRunButton_Click(object sender, RoutedEventArgs e)
+        {
+            MultiInputWindow multiInput = new MultiInputWindow(ContainingMachine);
+            multiInput.ShowDialog();
         }
     }
 }

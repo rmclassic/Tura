@@ -33,6 +33,8 @@
             <TextBlock Text="Input:"/>
             <TextBox Width="100" Name="InputTextBox"/>
             <Button Name="StartMachineButton" Content="Start Machine" Width="100" Click="StartMachineButton_Click"/>
+            <Button Name="QuickRunButton" Content="Start Machine(Without step-in)" Width="200" Click="QuickRunButton_Click"/>
+            <Button Name="MultiInputRunButton" Content="Multi-input Run" Width="100" Click="MultiInputRunButton_Click"/>
 
         </Menu>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,20,0,20">

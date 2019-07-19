@@ -74,6 +74,10 @@ namespace Tura.Util
 
                     input = input.Remove(cursor, 1);
                     input = input.Insert(cursor, stepresult.ReplaceBy.ToString());
+
+                    if (stepresult.Destination == null)
+                        return input;
+
                     input = stepresult.Destination.RunVertex(input);
 
                     if (stepresult.To == Transition.Right)
@@ -91,9 +95,6 @@ namespace Tura.Util
                             cursor = 0;
                         }
                     }
-
-                    stepresult.Destination.InvokeActivation();
-
                 }
                 catch (Exception ex)
                 {

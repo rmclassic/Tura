@@ -217,11 +217,11 @@ namespace Tura
         {
             System.Windows.Controls.MenuItem item = sender as System.Windows.Controls.MenuItem;
 
-                System.Windows.Forms.SaveFileDialog dlg = new System.Windows.Forms.SaveFileDialog();
-                dlg.DefaultExt = "tmf";
-                dlg.Filter = "Turing machine file | *.tmf";
-                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    FileDAL.SaveTuringMachine(ContainingMachine, dlg.FileName);
+            System.Windows.Forms.SaveFileDialog dlg = new System.Windows.Forms.SaveFileDialog();
+            dlg.DefaultExt = "tmf";
+            dlg.Filter = "Turing machine file | *.tmf";
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                FileDAL.SaveTuringMachine(ContainingMachine, dlg.FileName);
         }
 
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
