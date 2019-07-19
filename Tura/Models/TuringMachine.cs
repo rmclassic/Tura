@@ -26,6 +26,24 @@ namespace Tura.Models
             Vertices.Add(Start);
             Vertices.Add(Finish);
         }
+
+        public override void ReconstructRefs()
+        {
+            foreach (Edge<TuringCondition> edge in Edges)
+            {
+                foreach (Vertex vertex in Vertices)
+                {
+                    if (vertex.ID == edge.Source.ID)
+                        edge.Source = vertex;
+                    if (vertex.ID == edge.Destination.ID)
+                        edge.Destination = vertex;
+
+                    if (vertex.ContainsMachine)
+                        vertex.ContainingMachine.ReconstructRefs();
+                }
+            }
+        }
+
         public void PurgeOrphanEdges()
         {
             for (int i = 0; i < Edges.Count; i++)

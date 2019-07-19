@@ -166,5 +166,9 @@ namespace Tura.Controls
             ContainingVertex.IsStartState = !ContainingVertex.IsStartState;
             InvalidateVertexControl();
         }
+
+        private void MainEllipse_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+        }
     }
 }

@@ -32,5 +32,5 @@ namespace Tura.Models
         public Transition To;
     }
 
-    public enum Transition { Left, Right };
+    public enum Transition { Left, Right, None };
 }

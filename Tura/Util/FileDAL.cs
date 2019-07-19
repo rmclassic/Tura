@@ -26,13 +26,16 @@ namespace Tura.Util
             {
                 foreach (Edge<char> edge in m.Edges)
                     edge.GetConditions.RemoveAt(0);
+
+                m.ReconstructRefs();
             }
             foreach (TuringMachine m in p.TuringMachines)
             {
                 foreach (Edge<TuringCondition> edge in m.Edges)
                     edge.GetConditions.RemoveAt(0);
+
+                m.ReconstructRefs();
             }
-            ReconstructRefs(p);
             return p;
         }
 
@@ -47,7 +50,7 @@ namespace Tura.Util
                 foreach (Edge<TuringCondition> edge in machine.Edges)
                     edge.GetConditions.RemoveAt(0);
 
-            ReconstructRefs(machine);
+            machine.ReconstructRefs();
             return machine;
         }
 
@@ -74,66 +77,9 @@ namespace Tura.Util
             foreach (Edge<char> edge in machine.Edges)
                 edge.GetConditions.RemoveAt(0);
 
-            ReconstructRefs(machine);
+            machine.ReconstructRefs();
             return machine;
-        }
-
-        static void ReconstructRefs(TuringMachine machine)
-        {
-            foreach (Edge<TuringCondition> edge in machine.Edges)
-            {
-                foreach (Vertex vertex in machine.Vertices)
-                {
-                    if (vertex.ID == edge.Source.ID)
-                        edge.Source = vertex;
-                    if (vertex.ID == edge.Destination.ID)
-                        edge.Destination = vertex;
-                }
-            }
-        }
-
-        static void ReconstructRefs(DFAMachine machine)
-        {
-            foreach (Edge<char> edge in machine.Edges)
-            {
-                foreach (Vertex vertex in machine.Vertices)
-                {
-                    if (vertex.ID == edge.Source.ID)
-                        edge.Source = vertex;
-                    if (vertex.ID == edge.Destination.ID)
-                        edge.Destination = vertex;
-                }
-            }
-        }
-
-        static void ReconstructRefs(Project p)
-        {
-            foreach (DFAMachine machine in p.DFAMachines)
-            {
-                foreach (Edge<char> edge in machine.Edges)
-                {
-                    foreach (Vertex vertex in machine.Vertices)
-                    {
-                        if (vertex.ID == edge.Source.ID)
-                            edge.Source = vertex;
-                        if (vertex.ID == edge.Destination.ID)
-                            edge.Destination = vertex;
-                    }
-                }
-            }
-            foreach (TuringMachine machine in p.TuringMachines)
-            {
-                foreach (Edge<TuringCondition> edge in machine.Edges)
-                {
-                    foreach (Vertex vertex in machine.Vertices)
-                    {
-                        if (vertex.ID == edge.Source.ID)
-                            edge.Source = vertex;
-                        if (vertex.ID == edge.Destination.ID)
-                            edge.Destination = vertex;
-                    }
-                }
-            }
-        }
+        }    
+      
     }
 }

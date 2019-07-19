@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top">
     <Grid>
-        <Ellipse Name="MainEllipse"  Width="100" Height="100" Stroke="Black" Fill="LightGray" StrokeThickness="2">
+        <Ellipse Name="MainEllipse"  Width="100" Height="100" Stroke="Black" Fill="LightGray" StrokeThickness="2" MouseDown="MainEllipse_MouseDown">
 
             <Ellipse.ContextMenu>
                 <ContextMenu>
@@ -21,9 +21,9 @@
 
         </Ellipse>
 
-        
-        
-        <Ellipse Visibility="Collapsed" Name="FinishStateVisual" Width="90" Height="90" Stroke="Black" Fill="LightGray" StrokeThickness="2">
+
+
+        <Ellipse Visibility="Collapsed" Name="FinishStateVisual" Width="90" Height="90" Stroke="Black" Fill="LightGray" StrokeThickness="2" MouseDown="MainEllipse_MouseDown">
             <Ellipse.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Connect to" Click="ConnectTo_Click"/>
@@ -37,7 +37,7 @@
 
         </Ellipse>
 
-        <Ellipse Visibility="Collapsed" Name="StartStateVisual" Width="80" Height="80" Stroke="Black" Fill="LightGray" StrokeThickness="2">
+        <Ellipse Visibility="Collapsed" Name="StartStateVisual" Width="80" Height="80" Stroke="Black" Fill="LightGray" StrokeThickness="2" MouseDown="MainEllipse_MouseDown">
             <Ellipse.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Connect to" Click="ConnectTo_Click"/>

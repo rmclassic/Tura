@@ -42,7 +42,7 @@ namespace Tura.Util
                 throw new InvalidOperationException("Broker should be initialized first");
 
             if (sourcevertex == null)
-                sourcevertex = GetStartState();
+                return new TuringBrokerStepResult(GetStartState(), condition, Transition.None);
 
             foreach (Edge<TuringCondition> e in ContainingMachine.Edges)
             {

@@ -151,9 +151,9 @@ namespace Tura
                     {
                         cursor++;
                         if (cursor >= input.Length)
-                            input = input + "#";
+                            input += "#";
                     }
-                    else
+                    else if (stepresult.To == Transition.Left)
                     {
                         cursor--;
                         if (cursor < 0)

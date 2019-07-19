@@ -12,11 +12,13 @@ namespace Tura.Models
         public string Name;
         public Point Location;
         public List<Vertex> Vertices;
-        //public List<Edge<T>> Edges;
         public MachineClass Class;
         public abstract void RemoveVertex(Vertex V);
         public abstract string Run(string input);
+        public abstract void ReconstructRefs();
     }
+
+
 
     public enum MachineClass { DFA, Turing }
 }

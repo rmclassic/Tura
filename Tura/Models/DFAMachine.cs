@@ -21,6 +21,23 @@ namespace Tura.Models
             Location = new Point(20, 20);
         }
 
+        public override void ReconstructRefs()
+        {
+            foreach (Edge<char> edge in Edges)
+            {
+                foreach (Vertex vertex in Vertices)
+                {
+                    if (vertex.ID == edge.Source.ID)
+                        edge.Source = vertex;
+                    if (vertex.ID == edge.Destination.ID)
+                        edge.Destination = vertex;
+
+                    if (vertex.ContainsMachine)
+                        vertex.ContainingMachine.ReconstructRefs();
+                }
+            }
+        }
+
         public DFAMachine(string name)
         {
             Name = name;
