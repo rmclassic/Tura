@@ -3,11 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:res="clr-namespace:Tura.Properties"
              xmlns:local="clr-namespace:Tura.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="20" d:DesignWidth="200" Padding="10,10,10,10">
-    <Grid Background="White">
-        <TextBox Name="InputTextBox" Width="100" HorizontalAlignment="Left"/>
-        <TextBox Name="OutputTextBox" Width="100" HorizontalAlignment="Right" IsEnabled="False" Text="Output"/>
+    <Grid>
+        <TextBox Name="InputTextBox" Width="100" HorizontalAlignment="Left" Background="{Binding Source={x:Static res:Settings.Default}, Path=BackColor}" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}"/>
+        <TextBox Name="OutputTextBox" Width="100" HorizontalAlignment="Right" IsEnabled="False" Text="Output" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}" Background="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}"/>
     </Grid>
 </UserControl>

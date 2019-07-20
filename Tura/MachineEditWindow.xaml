@@ -3,45 +3,46 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:res="clr-namespace:Tura.Properties"
         xmlns:local="clr-namespace:Tura"
         mc:Ignorable="d"
         Title="MachineEditWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Background="{Binding Source={x:Static res:Settings.Default}, Path=BackColor}">
         <Grid.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="_New Vertex" Click="MenuItem_Click"/>
             </ContextMenu>
         </Grid.ContextMenu>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File">
-                <MenuItem Header="_Open Machine"/>
-                <MenuItem Header="_Close"/>
-                <MenuItem Header="_Open Machine" Click="MenuItem_Click_1"/>
-                <MenuItem Header="_Save Machine" Click="MenuItem_Click_2"/>
-                <MenuItem Header="_Import" >
-                    <MenuItem Header="DFA Machine" Click="MenuItem_Click_3"/>
-                    <MenuItem Header="Turing Machine" Click="MenuItem_Click_4"/>
+        <Menu DockPanel.Dock="Top" Background="{Binding Source={x:Static res:Settings.Default}, Path=Accent}">
+            <MenuItem Header="_File" Background="{Binding Source={x:Static res:Settings.Default}, Path=Accent}" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}">
+                <MenuItem Header="_Open Machine" Foreground="Black"/>
+                <MenuItem Header="_Close" Foreground="Black"/>
+                <MenuItem Header="_Open Machine" Click="MenuItem_Click_1" Foreground="Black"/>
+                <MenuItem Header="_Save Machine" Click="MenuItem_Click_2" Foreground="Black"/>
+                <MenuItem Header="_Import" Foreground="Black" >
+                    <MenuItem Header="DFA Machine" Click="MenuItem_Click_3" Foreground="Black"/>
+                    <MenuItem Header="Turing Machine" Click="MenuItem_Click_4" Foreground="Black"/>
                 </MenuItem>
 
             </MenuItem>
 
-            <MenuItem Header="_Graph">
+            <MenuItem Header="_Graph" Background="{Binding Source={x:Static res:Settings.Default}, Path=Accent}" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}">
                 <MenuItem Header="Create">
                     <MenuItem Header="_New Vertex" Click="MenuItem_Click"/>
                 </MenuItem>
             </MenuItem>
-            <TextBlock Text="Input:"/>
-            <TextBox Width="100" Name="InputTextBox"/>
-            <Button Name="StartMachineButton" Content="Start Machine" Width="100" Click="StartMachineButton_Click"/>
-            <Button Name="QuickRunButton" Content="Start Machine(Without step-in)" Width="200" Click="QuickRunButton_Click"/>
-            <Button Name="MultiInputRunButton" Content="Multi-input Run" Width="100" Click="MultiInputRunButton_Click"/>
+            <TextBlock Text="Input:" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}"/>
+            <TextBox Width="100" Name="InputTextBox" Background="{Binding Source={x:Static res:Settings.Default}, Path=BackColor}" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}"/>
+            <Button Name="StartMachineButton" Content="Start Machine" Width="100" Click="StartMachineButton_Click" Background="{Binding Source={x:Static res:Settings.Default}, Path=BackColor}" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}"/>
+            <Button Name="QuickRunButton" Content="Start Machine(Without step-in)" Width="200" Click="QuickRunButton_Click" Background="{Binding Source={x:Static res:Settings.Default}, Path=BackColor}" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}"/>
+            <Button Name="MultiInputRunButton" Content="Multi-input Run" Width="100" Click="MultiInputRunButton_Click" Background="{Binding Source={x:Static res:Settings.Default}, Path=BackColor}" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}"/>
 
         </Menu>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="0,20,0,20">
-            <Grid Name="GraphGrid" Background="White"/>
+            <Grid Name="GraphGrid" Background="{Binding Source={x:Static res:Settings.Default}, Path=BackColor}"/>
             
         </ScrollViewer>
-        <TextBox Background="Transparent" Foreground="Black" Name="NotifText" VerticalAlignment="Bottom" Margin="0,0,0,20" FontSize="36" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" IsEnabled="False">
+        <TextBox Background="Transparent" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}" Name="NotifText" VerticalAlignment="Bottom" Margin="0,0,0,20" FontSize="36" TextAlignment="Center" FontWeight="Bold" BorderThickness="0" IsEnabled="False">
             Notifications
             <TextBox.RenderTransform>
                 <TranslateTransform X="0" Y="0" x:Name="TextTrans"/>

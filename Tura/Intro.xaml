@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tura"
         mc:Ignorable="d"
-        Title="Intro" Height="300" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="Intro" Height="300" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True">
     <Grid>
         <Rectangle Stroke="Gray" StrokeThickness="1">
             <Rectangle.Fill>

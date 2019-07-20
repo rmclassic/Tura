@@ -132,6 +132,7 @@ namespace Tura
 
         private void StartMachineButton_Click(object sender, RoutedEventArgs e)
         {
+            string input = InputTextBox.Text;
             if (InputTextBox.Text == "")
             {
                 MessageBox.Show("No input is given to the machine.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -149,17 +150,18 @@ namespace Tura
                 return;
             }
             Vertex TempVertex = null;
-            foreach (char c in InputTextBox.Text)
+            for (int i = 0; i < input.Length; i++)
             {
                 try
                 {
-                    TempVertex = broker.Step(c, TempVertex);
+                    TempVertex = broker.Step(input[i], TempVertex);
                     if (TempVertex == null)
                     {
-                        SetNotificationText("Cursor stopped on condition " + c);
+                        SetNotificationText("Cursor stopped on condition " + input[i]);
                         return;
                     }
 
+                    input = TempVertex.RunVertex(input);
                     SetNotificationText("Cursor Went to " + TempVertex.Name);
                 }
                 catch (Exception ex)

@@ -125,14 +125,14 @@ namespace Tura.Controls
         private void InitializeEdge()
         {
             EdgeLine = new Line();
-            Path.Stroke = System.Windows.Media.Brushes.Black;
+            Path.Stroke = new SolidColorBrush() { Color = System.Windows.Media.Color.FromRgb(System.Drawing.Color.FromName(Properties.Settings.Default.Accent).R, System.Drawing.Color.FromName(Properties.Settings.Default.Accent).G, System.Drawing.Color.FromName(Properties.Settings.Default.Accent).B) };
             Path.StrokeThickness = 2;
             Path.HorizontalAlignment = HorizontalAlignment.Left;
             Path.VerticalAlignment = VerticalAlignment.Top;
-            Arrow.Stroke = Brushes.Black;
+            Arrow.Stroke = new SolidColorBrush() { Color = System.Windows.Media.Color.FromRgb(System.Drawing.Color.FromName(Properties.Settings.Default.Accent).R, System.Drawing.Color.FromName(Properties.Settings.Default.Accent).G, System.Drawing.Color.FromName(Properties.Settings.Default.Accent).B) };
             Arrow.StrokeThickness = 2;
-            Arrow.Fill = Brushes.Black;
-
+            Arrow.Fill = new SolidColorBrush() { Color = System.Windows.Media.Color.FromRgb(System.Drawing.Color.FromName(Properties.Settings.Default.Accent).R, System.Drawing.Color.FromName(Properties.Settings.Default.Accent).G, System.Drawing.Color.FromName(Properties.Settings.Default.Accent).B) }; ;
+            ConditionTextBlock.Foreground = new SolidColorBrush() { Color = System.Windows.Media.Color.FromRgb(System.Drawing.Color.FromName(Properties.Settings.Default.Accent).R, System.Drawing.Color.FromName(Properties.Settings.Default.Accent).G, System.Drawing.Color.FromName(Properties.Settings.Default.Accent).B) };
             ConfigureEdgeContextMenu();
 
             ControlGrid.Children.Add(ConditionTextBlock);
