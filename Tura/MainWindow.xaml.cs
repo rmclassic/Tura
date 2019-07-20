@@ -137,5 +137,10 @@ namespace Tura
         {
             IsProjectLoaded = false;
         }
+
+        private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            new SettingsWindow().Show();
+        }
     }
 }
