@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tura"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Tura" Height="450" Width="800">
     <Grid >
         <Menu DockPanel.Dock="Top" Panel.ZIndex="1" Background="{Binding Source={x:Static res:Settings.Default}, Path=Accent}" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}" BorderBrush="Black" OpacityMask="Black">
             <MenuItem Header="_File" Background="{Binding Source={x:Static res:Settings.Default}, Path=Accent}">
@@ -19,8 +19,8 @@
 
             <MenuItem Header="_Machine" Name="MachineMenu" Background="{Binding Source={x:Static res:Settings.Default}, Path=Accent}">
                 <MenuItem Header="Create" Foreground="Black">
-                    <MenuItem Header="DFA Machine" Click="MenuItem_Click" Foreground="Black"/>
-                    <MenuItem Header="Turing Machine" Click="MenuItem_Click" Foreground="Black"/>
+                    <MenuItem Header="DFA Machine" Click="MenuItem_Click" Foreground="Black"  Name="AddDFAMachineMenuItem"/>
+                    <MenuItem Header="Turing Machine" Click="MenuItem_Click" Foreground="Black" Name="AddTuringMachineMenuItem"/>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Tools" Background="{Binding Source={x:Static res:Settings.Default}, Path=Accent}">

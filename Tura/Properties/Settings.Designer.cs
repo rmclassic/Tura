@@ -58,5 +58,29 @@ namespace Tura.Properties {
                 this["Accent"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Activated {
+            get {
+                return ((bool)(this["Activated"]));
+            }
+            set {
+                this["Activated"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ActivationKey {
+            get {
+                return ((string)(this["ActivationKey"]));
+            }
+            set {
+                this["ActivationKey"] = value;
+            }
+        }
     }
 }

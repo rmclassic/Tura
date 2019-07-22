@@ -9,6 +9,6 @@
              d:DesignHeight="20" d:DesignWidth="200" Padding="10,10,10,10">
     <Grid>
         <TextBox Name="InputTextBox" Width="100" HorizontalAlignment="Left" Background="{Binding Source={x:Static res:Settings.Default}, Path=BackColor}" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}"/>
-        <TextBox Name="OutputTextBox" Width="100" HorizontalAlignment="Right" IsEnabled="False" Text="Output" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}" Background="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}"/>
+        <TextBox Name="OutputTextBox" Width="100" HorizontalAlignment="Right" IsEnabled="False" Text="Output" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}" Background="{Binding Source={x:Static res:Settings.Default}, Path=BackColor}"/>
     </Grid>
 </UserControl>

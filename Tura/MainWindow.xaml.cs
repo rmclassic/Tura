@@ -31,9 +31,20 @@ namespace Tura
         public MainWindow()
         {
             InitializeComponent();
+            InitializeWindow();
+            Properties.Settings.Default.Reload();
             IsProjectLoaded = false;
             if (IsProjectLoaded)
             InvalidateMachinesGrid();
+        }
+
+        void InitializeWindow()
+        {
+            if (!Properties.Settings.Default.Activated)
+            {
+                Title = "Tura(Trial version)";
+                AddTuringMachineMenuItem.IsEnabled = false;
+            }
         }
 
         public void InvalidateMachinesGrid()
@@ -93,6 +104,7 @@ namespace Tura
 
             InvalidateMachinesGrid();
             IsProjectLoaded = true;
+                Title += " - " + ContainingProject.Name;
             }
             catch (Exception ex)
             {
@@ -136,11 +148,13 @@ namespace Tura
         private void MenuItem_Click_4(object sender, RoutedEventArgs e)
         {
             IsProjectLoaded = false;
+            InitializeWindow();
         }
 
         private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
             new SettingsWindow().Show();
+            InitializeWindow();
         }
     }
 }
