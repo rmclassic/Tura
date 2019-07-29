@@ -17,11 +17,11 @@
             <MenuItem Header="_File" Background="{Binding Source={x:Static res:Settings.Default}, Path=Accent}" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}">
                 <MenuItem Header="_Open Machine" Foreground="Black"/>
                 <MenuItem Header="_Close" Foreground="Black"/>
-                <MenuItem Header="_Open Machine" Click="MenuItem_Click_1" Foreground="Black"/>
-                <MenuItem Header="_Save Machine" Click="MenuItem_Click_2" Foreground="Black"/>
+                <MenuItem Header="_Open Machine" Click="OpenMachineMenuItem_Click" Foreground="Black"/>
+                <MenuItem Header="_Save Machine" Click="SaveMachineMenuItem_Click" Foreground="Black"/>
                 <MenuItem Header="_Import" Foreground="Black" >
-                    <MenuItem Header="DFA Machine" Click="MenuItem_Click_3" Foreground="Black"/>
-                    <MenuItem Header="Turing Machine" Click="MenuItem_Click_4" Foreground="Black"/>
+                    <MenuItem Header="DFA Machine" Click="ImportDFAMachineMenuItem_Click" Foreground="Black"/>
+                    <MenuItem Header="Turing Machine" Click="ImportTuringMachineMenuItem_Click" Foreground="Black"/>
                 </MenuItem>
 
             </MenuItem>

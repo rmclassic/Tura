@@ -49,7 +49,7 @@ namespace Tura.Controls
                 });
                 await Task.Delay(1);
             }
-            for (int i = 0; i < 210; i+=20)
+            for (int i = 0; i < 210; i += 20)
             {
                 MainEllipse.Dispatcher.Invoke(() =>
                 {

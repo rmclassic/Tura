@@ -84,7 +84,6 @@
     <Compile Include="Intro.xaml.cs">
       <DependentUpon>Intro.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\ConditionList.cs" />
     <Compile Include="Models\DFAMachine.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\TuringBrokerStepResult.cs" />
@@ -113,6 +112,7 @@
     <Compile Include="Util\FileDAL.cs" />
     <Compile Include="Util\Rand.cs" />
     <Compile Include="Util\TuringMachineBroker.cs" />
+    <Compile Include="Util\TuringMachineDebugger.cs" />
     <Page Include="Controls\EdgeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

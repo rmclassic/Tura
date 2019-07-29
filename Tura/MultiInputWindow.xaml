@@ -6,7 +6,7 @@
         xmlns:res="clr-namespace:Tura.Properties"
         xmlns:local="clr-namespace:Tura"
         mc:Ignorable="d"
-        Title="MultiInputWindow" Height="350" Width="250">
+        Title="Input" Height="350" Width="250">
     <Grid Background="{Binding Source={x:Static res:Settings.Default}, Path=BackColor}">
         <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Margin="0,0,0,50">
             <StackPanel Name="ConditionsPanel" VerticalAlignment="Top">

@@ -9,7 +9,7 @@ namespace Tura.Util
     class TuringMachineBroker
     {
         TuringMachine ContainingMachine;
-        bool Initialized = true;
+        bool Initialized = false;
 
         public TuringMachineBroker(TuringMachine machine)
         {
@@ -18,12 +18,12 @@ namespace Tura.Util
 
         public void InitializeMachine()
         {
-            //DFAMachineDebugger dbg = new DFAMachineDebugger(ContainingMachine);
-            //string error = dbg.GetFirstError();
-            //if (error != "")
-            //    throw new InvalidOperationException(error);
+            TuringMachineDebugger dbg = new TuringMachineDebugger(ContainingMachine);
+            string error = dbg.GetFirstError();
+            if (error != "")
+                throw new InvalidOperationException(error);
 
-            //Initialized = true;
+            Initialized = true;
         }
 
         public Vertex GetStartState()

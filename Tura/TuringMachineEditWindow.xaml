@@ -11,22 +11,22 @@
     <Grid Name="WindowGrid">
         <Grid.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="_New Vertex" Click="MenuItem_Click"/>
+                <MenuItem Header="_New Vertex" Click="NewVertexMenuItem_Click"/>
             </ContextMenu>
         </Grid.ContextMenu>
         <Menu DockPanel.Dock="Top" Background="{Binding Source={x:Static res:Settings.Default}, Path=Accent}">
             <MenuItem Header="_File" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}">
-                <MenuItem Header="_Open Machine" Click="MenuItem_Click_1" Foreground="Black"/>
-                <MenuItem Header="_Save Machine" Click="MenuItem_Click_2" Foreground="Black"/>
+                <MenuItem Header="_Open Machine" Click="OpenMachineMenuItem_Click" Foreground="Black"/>
+                <MenuItem Header="_Save Machine" Click="SaveMahcineMenuItem_Click" Foreground="Black"/>
                 <MenuItem Header="_Import" Foreground="Black">
-                        <MenuItem Header="DFA Machine" Click="MenuItem_Click_3" Foreground="Black"/>
-                    <MenuItem Header="Turing Machine" Click="MenuItem_Click_4" Foreground="Black"/>
+                        <MenuItem Header="DFA Machine" Click="ImportDFAMachineMenuItem_Click" Foreground="Black"/>
+                    <MenuItem Header="Turing Machine" Click="ImportTuringMachineMenuItem_Click" Foreground="Black"/>
                 </MenuItem>
             </MenuItem>
 
             <MenuItem Header="_Graph" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}">
                 <MenuItem Header="Create" Foreground="Black">
-                    <MenuItem Header="_New Vertex" Click="MenuItem_Click" Foreground="Black"/>
+                    <MenuItem Header="_New Vertex" Click="NewVertexMenuItem_Click" Foreground="Black"/>
                 </MenuItem>
             </MenuItem>
             <TextBlock Text="Input:" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}"/>

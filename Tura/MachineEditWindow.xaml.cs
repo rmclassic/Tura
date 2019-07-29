@@ -31,6 +31,7 @@ namespace Tura
 
             InitializeComponent();
             ContainingMachine = containingmachine;
+            Title = "Edit machine: " + containingmachine.Name;
             Task.Run(NotificationChangeLoop);
             InvalidateMachineGraph();
         }
@@ -177,7 +178,7 @@ namespace Tura
                 SetNotificationText("INPUT ACCEPTED");
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void OpenMachineMenuItem_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog();
             dlg.DefaultExt = "dmf";
@@ -195,7 +196,7 @@ namespace Tura
             }
         }
 
-        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        private void SaveMachineMenuItem_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.MenuItem item = sender as System.Windows.Controls.MenuItem;
 
@@ -206,7 +207,7 @@ namespace Tura
                 FileDAL.SaveDFAMachine(ContainingMachine, dlg.FileName);
         }
 
-        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        private void ImportDFAMachineMenuItem_Click(object sender, RoutedEventArgs e)
         {
             DFAMachine ImportedMachine;
             System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog();
@@ -230,7 +231,7 @@ namespace Tura
             }
         }
 
-        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        private void ImportTuringMachineMenuItem_Click(object sender, RoutedEventArgs e)
         {
             TuringMachine ImportedMachine;
             System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog();

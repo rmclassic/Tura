@@ -91,12 +91,12 @@ namespace Tura
             InvalidateMachinesGrid();
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void OpenProjectMenuItem_Click(object sender, RoutedEventArgs e)
         {
             
             OpenFileDialog dlg = new OpenFileDialog();
-            dlg.DefaultExt = "TPF";
-            dlg.Filter = "Turing project file | *.TPF";
+            dlg.DefaultExt = "tpf";
+            dlg.Filter = "Tura project file | *.tpf";
             try
             {
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -112,7 +112,7 @@ namespace Tura
             }
         }
 
-        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        private void SaveProjectMenuItem_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.MenuItem item = sender as System.Windows.Controls.MenuItem;
             if (ContainingProject.FileDir == null | item.Header.ToString() == "Save _As")
@@ -139,13 +139,13 @@ namespace Tura
             
         }
 
-        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        private void NewProjectMenuItem_Click(object sender, RoutedEventArgs e)
         {
             ContainingProject = new Project();
             IsProjectLoaded = true;
         }
 
-        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        private void CloseProjectMenuItem_Click(object sender, RoutedEventArgs e)
         {
             IsProjectLoaded = false;
             InitializeWindow();

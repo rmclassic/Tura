@@ -13,9 +13,15 @@ namespace Tura.Models
         public Point Location;
         public List<Vertex> Vertices;
         public MachineClass Class;
-        public abstract void RemoveVertex(Vertex V);
+        public void RemoveVertex(Vertex V)
+        {
+            Vertices.Remove(V);
+            PurgeOrphanEdges();
+        }
         public abstract string Run(string input);
         public abstract void ReconstructRefs();
+
+        public abstract void PurgeOrphanEdges();
     }
 
 

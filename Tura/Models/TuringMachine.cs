@@ -44,7 +44,14 @@ namespace Tura.Models
             }
         }
 
-        public void PurgeOrphanEdges()
+        public override string Run(string input)
+        {
+            TuringMachineBroker broker = new TuringMachineBroker(this);
+            broker.InitializeMachine();
+            return broker.Run(input);
+        }
+
+        public override void PurgeOrphanEdges()
         {
             for (int i = 0; i < Edges.Count; i++)
             {
@@ -55,20 +62,5 @@ namespace Tura.Models
                 }
             }
         }
-
-        public override string Run(string input)
-        {
-            TuringMachineBroker broker = new TuringMachineBroker(this);
-            broker.InitializeMachine();
-            return broker.Run(input);
-        }
-
-        public override void RemoveVertex(Vertex V)
-        {
-            Vertices.Remove(V);
-            PurgeOrphanEdges();
-        }
     }
-
-
 }

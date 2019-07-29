@@ -10,7 +10,6 @@ namespace Tura.Models
 {
     public class DFAMachine : Machine
     {
-        public int foo = 15;
         public List<Edge<char>> Edges;
 
         public DFAMachine()
@@ -62,11 +61,7 @@ namespace Tura.Models
             return broker.Run(input);
         }
 
-        public override void RemoveVertex(Vertex V)
-        {
-            Vertices.Remove(V);
-            PurgeOrphanEdges();
-        }
+        
 
         bool InterferingEdgeExist(Vertex source, char condition)
         {
@@ -78,7 +73,7 @@ namespace Tura.Models
             return false;
         }
 
-        void PurgeOrphanEdges()
+        public override void PurgeOrphanEdges()
         {
             for (int i = 0; i < Edges.Count; i++)
             {

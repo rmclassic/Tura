@@ -10,11 +10,11 @@
     <Grid >
         <Menu DockPanel.Dock="Top" Panel.ZIndex="1" Background="{Binding Source={x:Static res:Settings.Default}, Path=Accent}" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}" BorderBrush="Black" OpacityMask="Black">
             <MenuItem Header="_File" Background="{Binding Source={x:Static res:Settings.Default}, Path=Accent}">
-                <MenuItem Header="_New Project" Click="MenuItem_Click_3" Foreground="Black"/>
-                <MenuItem Header="_Open Project" Click="MenuItem_Click_1" Foreground="Black"/>
-                <MenuItem Header="_Save Project" Name="SaveProjectMenuItem" Click="MenuItem_Click_2" Foreground="Black"/>
-                <MenuItem Header="Save _As" Name="SaveAsMenuItem" Click="MenuItem_Click_2" Foreground="Black"/>
-                <MenuItem Header="_Close Project" Name="CloseProjectMenuItem" Click="MenuItem_Click_4"  Foreground="Black"/>
+                <MenuItem Header="_New Project" Click="NewProjectMenuItem_Click" Foreground="Black"/>
+                <MenuItem Header="_Open Project" Click="OpenProjectMenuItem_Click" Foreground="Black"/>
+                <MenuItem Header="_Save Project" Name="SaveProjectMenuItem" Click="SaveProjectMenuItem_Click" Foreground="Black"/>
+                <MenuItem Header="Save _As" Name="SaveAsMenuItem" Click="SaveProjectMenuItem_Click" Foreground="Black"/>
+                <MenuItem Header="_Close Project" Name="CloseProjectMenuItem" Click="CloseProjectMenuItem_Click"  Foreground="Black"/>
             </MenuItem>
 
             <MenuItem Header="_Machine" Name="MachineMenu" Background="{Binding Source={x:Static res:Settings.Default}, Path=Accent}">
