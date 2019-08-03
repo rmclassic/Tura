@@ -31,7 +31,6 @@ namespace Tura
         public bool IsProjectLoaded { set { isprojectloaded = value; MainPanel.Visibility = (value == true) ? Visibility.Visible : Visibility.Collapsed; MachineMenu.IsEnabled = value; CloseProjectMenuItem.IsEnabled = SaveAsMenuItem.IsEnabled = SaveProjectMenuItem.IsEnabled = value; } get { return isprojectloaded; } }
         public MainWindow()
         {
-            Properties.Settings.Default.Activated = false;
             InitializeComponent();
             InitializeWindow();
             Properties.Settings.Default.Reload();
@@ -44,7 +43,7 @@ namespace Tura
         {
             if (!Properties.Settings.Default.Activated)
             {
-                Title = "Tura(Trial version)";
+                Title = "Tura (Trial version)";
                 AddTuringMachineMenuItem.IsEnabled = false;
             }
         }
