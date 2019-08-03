@@ -27,8 +27,8 @@
             </MenuItem>
 
             <MenuItem Header="_Graph" Background="{Binding Source={x:Static res:Settings.Default}, Path=Accent}" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}">
-                <MenuItem Header="Create">
-                    <MenuItem Header="_New Vertex" Click="MenuItem_Click"/>
+                <MenuItem Header="Create" Foreground="Black">
+                    <MenuItem Header="_New Vertex" Click="MenuItem_Click" Foreground="Black"/>
                 </MenuItem>
             </MenuItem>
             <TextBlock Text="Input:" Foreground="{Binding Source={x:Static res:Settings.Default}, Path=ForeColor}"/>

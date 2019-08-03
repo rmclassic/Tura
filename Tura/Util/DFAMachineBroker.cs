@@ -29,6 +29,8 @@ namespace Tura.Util
 
         public string Run(string input)
         {
+            if (input == "")
+                throw new InvalidOperationException("No input is given to the machine.");
             Vertex TempVertex = null;
             foreach (char c in input)
             {
@@ -46,9 +48,9 @@ namespace Tura.Util
                 }
             }
             if (TempVertex.IsFinishState)
-                return TempVertex.Name;
+                return "Input accepted(" + TempVertex.Name + ")";
             else
-                return "";
+                return "Input rejected";
         }
 
         public Vertex GetStartState()

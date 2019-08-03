@@ -53,11 +53,20 @@ namespace Tura
 
         private void RunButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (MultiInputItem t in ConditionsPanel.Children)
+            try
             {
-                string input = t.GetInput();
-                t.SetOutput(ContainingMachine.Run(input));
+                foreach (MultiInputItem t in ConditionsPanel.Children)
+                {
+               
+                    string input = t.GetInput();
+                    t.SetOutput(ContainingMachine.Run(input));
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
     }
 

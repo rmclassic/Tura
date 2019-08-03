@@ -27,19 +27,22 @@ namespace Tura
         public TuringMachine ContainingMachine;
         bool ConnectionRequested = false;
         Vertex ConnectionRequestSource;
+
         public TuringMachineEditWindow(TuringMachine containingmachine)
         {
             InitializeComponent();
             ContainingMachine = containingmachine;
             Title = "Edit machine: " + containingmachine.Name;
             InvalidateMachineGraph();
-
             TapeControl = new TuringMachineTapeControl("") { Height = 100 };
 
             WindowGrid.Children.Add(TapeControl);
             TapeControl.ScrollToItem(0, true);
 
         }
+
+
+
 
         private void NewVertexMenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -187,7 +190,8 @@ namespace Tura
         private void QuickRunButton_Click(object sender, RoutedEventArgs e)
         {
             TuringMachineBroker broker = new TuringMachineBroker(ContainingMachine);
-            MessageBox.Show(broker.Run(InputTextBox.Text));
+            broker.InitializeMachine();
+            MessageBox.Show("Machine Output: " + broker.Run(InputTextBox.Text), "Result", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void MultiInputRunButton_Click(object sender, RoutedEventArgs e)

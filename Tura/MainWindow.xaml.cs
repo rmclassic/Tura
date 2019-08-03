@@ -100,7 +100,9 @@ namespace Tura
             try
             {
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                ContainingProject = FileDAL.LoadProject(dlg.FileName);
+                    ContainingProject = FileDAL.LoadProject(dlg.FileName);
+                else
+                    return;
 
             InvalidateMachinesGrid();
             IsProjectLoaded = true;

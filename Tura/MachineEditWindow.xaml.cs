@@ -257,7 +257,14 @@ namespace Tura
 
         private void QuickRunButton_Click(object sender, RoutedEventArgs e)
         {
-            SetNotificationText("Result: " + ContainingMachine.Run(InputTextBox.Text));
+            try
+            {
+                SetNotificationText("Result: " + ContainingMachine.Run(InputTextBox.Text));
+            } 
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void MultiInputRunButton_Click(object sender, RoutedEventArgs e)
