@@ -40,6 +40,11 @@ namespace Tura
                 ActivationKeyTextBox.Text = Properties.Settings.Default.ActivationKey;
                 ActivateButton.IsEnabled = false;
             }
+            else
+            {
+                ActivationKeyTextBox.IsEnabled = true;
+                ActivateButton.IsEnabled = true;
+            }
         }
 
         private void DarkThemeRadioButton_Checked(object sender, RoutedEventArgs e)

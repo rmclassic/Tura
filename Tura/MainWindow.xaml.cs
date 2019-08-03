@@ -24,12 +24,14 @@ namespace Tura
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         Project ContainingProject;
         bool isprojectloaded;
 
         public bool IsProjectLoaded { set { isprojectloaded = value; MainPanel.Visibility = (value == true) ? Visibility.Visible : Visibility.Collapsed; MachineMenu.IsEnabled = value; CloseProjectMenuItem.IsEnabled = SaveAsMenuItem.IsEnabled = SaveProjectMenuItem.IsEnabled = value; } get { return isprojectloaded; } }
         public MainWindow()
         {
+            Properties.Settings.Default.Activated = false;
             InitializeComponent();
             InitializeWindow();
             Properties.Settings.Default.Reload();
